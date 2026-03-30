@@ -1,0 +1,10 @@
+{
+  "name": "sushigogo-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for Sushi GoGo",
+  "dependencies": {
+    "airtable": "^0.12.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

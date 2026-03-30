@@ -1,0 +1,4 @@
+TierName,MinimumPoints,PointsMultiplier,PerksDescription,BadgeColor
+Bronze,0,1.0,"Earn 1 point per dollar spent. Birthday reward - free California Roll!",#CD7F32
+Silver,500,1.25,"Earn 1.25 points per dollar. Birthday bonus roll. Free size upgrade once per month. Early access to seasonal specials.",#C0C0C0
+Gold,1500,1.5,"Earn 1.5 points per dollar. Exclusive birthday platter. Priority pickup. Free monthly specialty roll. Invites to tasting events.",#FFD700

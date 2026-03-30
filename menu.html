@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Sushi GoGo - Fresh Sushi Kiosk</title>
+    <meta name="description" content="Explore our menu of fresh sushi rolls, bowls, and Japanese-inspired favorites at Sushi GoGo. Signature and classic rolls made to order.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #D63031;
+            --color-primary-dark: #b52728;
+            --color-black: #1a1a1a;
+            --color-cream: #FFF5F0;
+            --color-warm-white: #FFFAF7;
+            --color-border: #e8ddd6;
+            --color-text: #2D3436;
+            --color-text-light: #636E72;
+            --color-star: #d4a843;
+            --color-error: #dc2626;
+            --color-success: #16a34a;
+            --font-display: 'DM Serif Display', 'Georgia', serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --header-height: 64px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-warm-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           HEADER
+           ======================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #fff;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+            border-bottom: 1px solid var(--color-border);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .header-logo-text {
+            font-family: var(--font-display);
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: 0.02em;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .header-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-black);
+            transition: color 0.2s ease;
+            padding: 0;
+        }
+
+        .header-icon-btn:hover {
+            color: var(--color-primary);
+        }
+
+        .header-icon-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .user-avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .user-avatar:hover {
+            opacity: 0.85;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--color-black);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1040;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            max-width: 85vw;
+            height: 100%;
+            background: #fff;
+            z-index: 1050;
+            padding: 5rem 2rem 2rem;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-border);
+            transition: color 0.2s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--color-primary);
+        }
+
+        .mobile-menu .mobile-auth {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .mobile-menu .btn-sign-in {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem 1.5rem;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #fff;
+            background-color: var(--color-black);
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-menu .btn-sign-in:hover {
+            background-color: var(--color-primary);
+        }
+
+        /* ========================================
+           PAGE HEADING
+           ======================================== */
+        .page-heading {
+            margin-top: var(--header-height);
+            padding: 3.5rem 1.5rem 2.5rem;
+            text-align: center;
+            background-color: var(--color-warm-white);
+        }
+
+        .page-heading h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 400;
+            color: var(--color-primary);
+            letter-spacing: 0.01em;
+        }
+
+        .page-heading p {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            font-weight: 300;
+            max-width: 460px;
+            margin: 0.75rem auto 0;
+            letter-spacing: 0.02em;
+        }
+
+        /* ========================================
+           CATEGORY FILTER BAR
+           ======================================== */
+        .filter-bar {
+            position: sticky;
+            top: var(--header-height);
+            z-index: 900;
+            background: #fff;
+            border-bottom: 1px solid var(--color-border);
+            padding: 0 1rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .filter-bar.scrolled {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .filter-bar-inner {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter-bar-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-pill {
+            flex-shrink: 0;
+            padding: 0.85rem 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-text-light);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .filter-pill:hover {
+            color: var(--color-primary);
+        }
+
+        .filter-pill.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        /* ========================================
+           MENU GRID
+           ======================================== */
+        .menu-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+        }
+
+        .menu-loading {
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .menu-loading .spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--color-border);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .menu-loading p {
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+        }
+
+        .menu-empty {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: var(--color-text-light);
+        }
+
+        .menu-empty h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-empty p {
+            font-size: 0.85rem;
+        }
+
+        /* ========================================
+           MENU CARD
+           ======================================== */
+        .menu-card {
+            background: #fff;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            transition: border-color 0.25s ease;
+        }
+
+        .menu-card:hover {
+            border-color: var(--color-primary);
+        }
+
+        .menu-card-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: linear-gradient(135deg, #FFE0D6 0%, #FFD0C0 100%);
+        }
+
+        .menu-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .menu-card-image img {
+            transform: scale(1.03);
+        }
+
+        .menu-card-image .placeholder-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--color-border);
+        }
+
+        .menu-card-image .placeholder-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .menu-card-body {
+            padding: 1.15rem 1.25rem 1.35rem;
+        }
+
+        .menu-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card-name {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1.35;
+        }
+
+        .menu-card-price {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-black);
+            white-space: nowrap;
+            flex-shrink: 0;
+            letter-spacing: 0.02em;
+        }
+
+        .menu-card-description {
+            font-size: 0.825rem;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.85rem;
+            font-weight: 300;
+        }
+
+        /* ========================================
+           STAR RATINGS
+           ======================================== */
+        .rating-section {
+            border-top: 1px solid var(--color-border);
+            padding-top: 0.85rem;
+        }
+
+        .avg-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .stars-display {
+            display: inline-flex;
+            gap: 2px;
+        }
+
+        .star-icon {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .star-icon svg {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .star-icon .star-empty {
+            color: var(--color-border);
+        }
+
+        .star-icon .star-filled {
+            color: var(--color-star);
+            clip-path: inset(0 100% 0 0);
+        }
+
+        .rating-text {
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+            font-weight: 400;
+        }
+
+        .rating-text strong {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* Interactive user rating */
+        .user-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.45rem;
+        }
+
+        .user-rating-label {
+            font-size: 0.7rem;
+            color: var(--color-text-light);
+            font-weight: 400;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stars-interactive {
+            display: inline-flex;
+            gap: 2px;
+            cursor: pointer;
+        }
+
+        .stars-interactive .star-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            position: relative;
+            transition: transform 0.15s ease;
+        }
+
+        .stars-interactive .star-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .stars-interactive .star-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .stars-interactive .star-btn .star-empty-i {
+            color: var(--color-border);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .stars-interactive .star-btn .star-filled-i {
+            color: var(--color-star);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .stars-interactive .star-btn.active .star-filled-i,
+        .stars-interactive .star-btn.hovered .star-filled-i {
+            opacity: 1;
+        }
+
+        .user-rating-value {
+            font-size: 0.7rem;
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           TOAST NOTIFICATION
+           ======================================== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: var(--color-black);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2px;
+            z-index: 2000;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            opacity: 0;
+            pointer-events: none;
+            letter-spacing: 0.02em;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background-color: var(--color-cream);
+            padding: 4rem 1.5rem 2rem;
+        }
+
+        .footer-brand {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand-name {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 400;
+            color: var(--color-primary);
+            letter-spacing: 0.01em;
+        }
+
+        .footer-cards {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .footer-card {
+            border: 1px solid var(--color-border);
+            background: #fff;
+            padding: 1.75rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-card h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-card p {
+            font-size: 0.825rem;
+            color: var(--color-text);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .footer-card a {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-card a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-social-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            transition: all 0.2s ease;
+        }
+
+        .footer-social-icons a:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .footer-social-icons a svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .footer-tag-line {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            font-style: italic;
+            font-family: var(--font-display);
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+            letter-spacing: 0.02em;
+        }
+
+        /* ========================================
+           CATEGORY HEADINGS
+           ======================================== */
+        .category-heading {
+            grid-column: 1 / -1;
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            padding-top: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 0;
+            letter-spacing: 0.01em;
+        }
+
+        .category-heading:first-child {
+            padding-top: 0;
+        }
+
+        /* Unavailable items */
+        .menu-card.unavailable {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .menu-card.unavailable .menu-card-image::after {
+            content: 'UNAVAILABLE';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--color-black);
+            color: #fff;
+            padding: 0.35rem 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        /* Fade in animation for cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-card {
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (min-width: 640px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 960px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu-overlay {
+                display: block;
+                pointer-events: none;
+            }
+
+            .mobile-menu-overlay.active {
+                pointer-events: auto;
+            }
+
+            .page-heading {
+                padding: 2.5rem 1.25rem 2rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu,
+            .mobile-menu-overlay {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <a href="/" class="header-logo">
+            <span class="header-logo-text">Sushi<br>GoGo</span>
+        </a>
+
+        <div class="header-right" id="headerRight">
+            <div id="headerAuth">
+                <a href="/login.html" class="header-icon-btn" aria-label="Sign in">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                </a>
+            </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="/menu.html" class="active">Menu</a>
+        <a href="/rewards.html">Rewards</a>
+        <div class="mobile-auth" id="mobileAuth">
+            <a href="/login.html" class="btn-sign-in">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Page Heading -->
+    <section class="page-heading">
+        <h1>Our Menu</h1>
+        <p>Fresh rolls, hearty bowls, and Japanese-inspired favorites &mdash; made to order.</p>
+    </section>
+
+    <!-- Category Filter Bar -->
+    <div class="filter-bar" id="filterBar">
+        <div class="filter-bar-inner" id="filterPills">
+            <button class="filter-pill active" data-category="all">All</button>
+            <button class="filter-pill" data-category="Signature Rolls">Signature Rolls</button>
+            <button class="filter-pill" data-category="Classic Rolls">Classic Rolls</button>
+            <button class="filter-pill" data-category="Bowls">Bowls</button>
+            <button class="filter-pill" data-category="Sides">Sides</button>
+            <button class="filter-pill" data-category="Drinks">Drinks</button>
+        </div>
+    </div>
+
+    <!-- Menu Content -->
+    <main class="menu-section">
+        <div class="menu-grid" id="menuGrid">
+            <div class="menu-loading" id="menuLoading">
+                <div class="spinner"></div>
+                <p>Loading menu...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">
+            <span class="footer-brand-name">Sushi GoGo</span>
+        </div>
+        <div class="footer-cards">
+            <div class="footer-card">
+                <h4>Find Us</h4>
+                <p>
+                    Rivertown Crossings Mall<br>
+                    3700 Rivertown Pkwy<br>
+                    Grandville, MI 49418<br><br>
+                    <a href="mailto:info@sushigogo.com">info@sushigogo.com</a>
+                </p>
+            </div>
+            <div class="footer-card">
+                <h4>Hours</h4>
+                <p>
+                    Mon&ndash;Sat: 10am&ndash;9pm<br>
+                    Sun: 11am&ndash;6pm
+                </p>
+            </div>
+            <div class="footer-card">
+                <h4>Get Social</h4>
+                <div class="footer-social-icons">
+                    <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://tiktok.com" aria-label="TikTok" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                    </a>
+                </div>
+                <p class="footer-tag-line">Tag us in your photos!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Sushi GoGo. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ========================================
+            // STATE
+            // ========================================
+            let allMenuItems = [];
+            let activeCategory = 'all';
+            let userToken = localStorage.getItem('userToken');
+            let userRatings = {};
+            let userName = '';
+            let isLoggedIn = false;
+
+            const starSVG = '<svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+
+            // ========================================
+            // HEADER SCROLL SHADOW
+            // ========================================
+            const header = document.getElementById('header');
+            const filterBar = document.getElementById('filterBar');
+
+            window.addEventListener('scroll', function () {
+                const scrollY = window.scrollY;
+                header.classList.toggle('scrolled', scrollY > 10);
+                filterBar.classList.toggle('scrolled', scrollY > 200);
+            }, { passive: true });
+
+            // ========================================
+            // MOBILE MENU
+            // ========================================
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+
+            function openMobileMenu() {
+                hamburgerBtn.classList.add('open');
+                mobileMenu.classList.add('open');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMobileMenu() {
+                hamburgerBtn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            hamburgerBtn.addEventListener('click', function () {
+                if (mobileMenu.classList.contains('open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+
+            // ========================================
+            // CATEGORY FILTER
+            // ========================================
+            const filterPills = document.getElementById('filterPills');
+
+            filterPills.addEventListener('click', function (e) {
+                const pill = e.target.closest('.filter-pill');
+                if (!pill) return;
+
+                document.querySelectorAll('.filter-pill').forEach(function (p) {
+                    p.classList.remove('active');
+                });
+                pill.classList.add('active');
+
+                activeCategory = pill.dataset.category;
+                renderMenu();
+            });
+
+            // ========================================
+            // TOAST
+            // ========================================
+            let toastTimeout;
+            function showToast(message) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(function () {
+                    toast.classList.remove('show');
+                }, 2500);
+            }
+
+            // ========================================
+            // RENDER STAR DISPLAY (average)
+            // ========================================
+            function renderStars(rating) {
+                let html = '<div class="stars-display">';
+                for (let i = 1; i <= 5; i++) {
+                    let fillPercent = 0;
+                    if (rating >= i) {
+                        fillPercent = 100;
+                    } else if (rating > i - 1) {
+                        fillPercent = Math.round((rating - (i - 1)) * 100);
+                    }
+                    html += '<div class="star-icon">';
+                    html += '<span class="star-empty">' + starSVG + '</span>';
+                    html += '<span class="star-filled" style="clip-path: inset(0 ' + (100 - fillPercent) + '% 0 0);">' + starSVG + '</span>';
+                    html += '</div>';
+                }
+                html += '</div>';
+                return html;
+            }
+
+            // ========================================
+            // RENDER INTERACTIVE STARS (user rating)
+            // ========================================
+            function renderInteractiveStars(itemId, currentUserRating) {
+                let html = '<div class="stars-interactive" data-item-id="' + itemId + '">';
+                for (let i = 1; i <= 5; i++) {
+                    const isActive = currentUserRating >= i ? ' active' : '';
+                    html += '<button class="star-btn' + isActive + '" data-star="' + i + '" aria-label="Rate ' + i + ' stars">';
+                    html += '<span class="star-empty-i">' + starSVG + '</span>';
+                    html += '<span class="star-filled-i">' + starSVG + '</span>';
+                    html += '</button>';
+                }
+                html += '</div>';
+                return html;
+            }
+
+            // ========================================
+            // RENDER MENU CARD
+            // ========================================
+            function renderCard(item, index) {
+                const userRating = userRatings[item.id] || 0;
+                const priceStr = item.price != null ? '$' + parseFloat(item.price).toFixed(2) : '';
+                const unavailableClass = item.isAvailable ? '' : ' unavailable';
+
+                let imageHtml;
+                if (item.imageUrl) {
+                    imageHtml = '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.name) + '" loading="lazy">';
+                } else {
+                    imageHtml = '<div class="placeholder-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.379a48.474 48.474 0 00-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z"/></svg></div>';
+                }
+
+                const ratingNum = item.avgRating ? parseFloat(item.avgRating).toFixed(1) : '0.0';
+                const ratingCountText = item.ratingCount === 1 ? '1 rating' : (item.ratingCount || 0) + ' ratings';
+
+                let userRatingHtml = '';
+                if (isLoggedIn) {
+                    const userRatingText = userRating > 0 ? '<span class="user-rating-value">' + userRating + '/5</span>' : '';
+                    userRatingHtml = '<div class="user-rating">' +
+                        '<span class="user-rating-label">Your rating:</span>' +
+                        renderInteractiveStars(item.id, userRating) +
+                        userRatingText +
+                        '</div>';
+                }
+
+                return '<div class="menu-card' + unavailableClass + '" data-category="' + escapeHtml(item.category || '') + '" data-id="' + item.id + '" style="animation-delay: ' + (index * 0.05) + 's;">' +
+                    '<div class="menu-card-image">' + imageHtml + '</div>' +
+                    '<div class="menu-card-body">' +
+                        '<div class="menu-card-header">' +
+                            '<h3 class="menu-card-name">' + escapeHtml(item.name || 'Unnamed Item') + '</h3>' +
+                            '<span class="menu-card-price">' + priceStr + '</span>' +
+                        '</div>' +
+                        '<p class="menu-card-description">' + escapeHtml(item.description || '') + '</p>' +
+                        '<div class="rating-section" id="rating-' + item.id + '">' +
+                            '<div class="avg-rating">' +
+                                renderStars(item.avgRating || 0) +
+                                '<span class="rating-text"><strong>' + ratingNum + '</strong> (' + ratingCountText + ')</span>' +
+                            '</div>' +
+                            userRatingHtml +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+
+            // ========================================
+            // RENDER MENU
+            // ========================================
+            function renderMenu() {
+                const grid = document.getElementById('menuGrid');
+                const filtered = activeCategory === 'all'
+                    ? allMenuItems
+                    : allMenuItems.filter(function (item) { return item.category === activeCategory; });
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = '<div class="menu-empty"><h3>No items found</h3><p>Try selecting a different category.</p></div>';
+                    return;
+                }
+
+                if (activeCategory === 'all') {
+                    const categoryOrder = ['Signature Rolls', 'Classic Rolls', 'Bowls', 'Sides', 'Drinks'];
+                    const grouped = {};
+                    filtered.forEach(function (item) {
+                        const cat = item.category || 'Other';
+                        if (!grouped[cat]) grouped[cat] = [];
+                        grouped[cat].push(item);
+                    });
+
+                    let html = '';
+                    let idx = 0;
+                    categoryOrder.forEach(function (cat) {
+                        if (grouped[cat] && grouped[cat].length > 0) {
+                            html += '<h2 class="category-heading">' + escapeHtml(cat) + '</h2>';
+                            grouped[cat].forEach(function (item) {
+                                html += renderCard(item, idx++);
+                            });
+                        }
+                    });
+
+                    Object.keys(grouped).forEach(function (cat) {
+                        if (categoryOrder.indexOf(cat) === -1 && grouped[cat].length > 0) {
+                            html += '<h2 class="category-heading">' + escapeHtml(cat) + '</h2>';
+                            grouped[cat].forEach(function (item) {
+                                html += renderCard(item, idx++);
+                            });
+                        }
+                    });
+
+                    grid.innerHTML = html;
+                } else {
+                    let html = '';
+                    filtered.forEach(function (item, i) {
+                        html += renderCard(item, i);
+                    });
+                    grid.innerHTML = html;
+                }
+
+                if (isLoggedIn) {
+                    attachStarListeners();
+                }
+            }
+
+            // ========================================
+            // INTERACTIVE STAR LISTENERS
+            // ========================================
+            function attachStarListeners() {
+                document.querySelectorAll('.stars-interactive').forEach(function (container) {
+                    const itemId = container.dataset.itemId;
+                    const btns = container.querySelectorAll('.star-btn');
+
+                    btns.forEach(function (btn) {
+                        btn.addEventListener('mouseenter', function () {
+                            const star = parseInt(btn.dataset.star);
+                            btns.forEach(function (b) {
+                                const s = parseInt(b.dataset.star);
+                                b.classList.toggle('hovered', s <= star);
+                            });
+                        });
+
+                        btn.addEventListener('mouseleave', function () {
+                            btns.forEach(function (b) {
+                                b.classList.remove('hovered');
+                            });
+                        });
+
+                        btn.addEventListener('click', function () {
+                            const star = parseInt(btn.dataset.star);
+                            submitRating(itemId, star);
+                        });
+                    });
+                });
+            }
+
+            // ========================================
+            // SUBMIT RATING
+            // ========================================
+            function submitRating(menuItemId, stars) {
+                fetch('/.netlify/functions/rate-item', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userToken
+                    },
+                    body: JSON.stringify({ menuItemId: menuItemId, stars: stars })
+                })
+                .then(function (res) {
+                    if (!res.ok) throw new Error('Rating failed');
+                    return res.json();
+                })
+                .then(function (data) {
+                    userRatings[menuItemId] = stars;
+
+                    var item = allMenuItems.find(function (m) { return m.id === menuItemId; });
+                    if (item) {
+                        item.avgRating = data.avgRating;
+                        item.ratingCount = data.ratingCount;
+                    }
+
+                    updateCardRating(menuItemId, data.avgRating, data.ratingCount, stars);
+                    showToast('Rating saved!');
+                })
+                .catch(function (err) {
+                    console.error('Rating error:', err);
+                    showToast('Could not save rating. Try again.');
+                });
+            }
+
+            // ========================================
+            // UPDATE CARD RATING (without full re-render)
+            // ========================================
+            function updateCardRating(itemId, avgRating, ratingCount, userRating) {
+                var ratingSection = document.getElementById('rating-' + itemId);
+                if (!ratingSection) return;
+
+                var ratingNum = parseFloat(avgRating).toFixed(1);
+                var ratingCountText = ratingCount === 1 ? '1 rating' : ratingCount + ' ratings';
+                var userRatingText = userRating > 0 ? '<span class="user-rating-value">' + userRating + '/5</span>' : '';
+
+                ratingSection.innerHTML =
+                    '<div class="avg-rating">' +
+                        renderStars(avgRating) +
+                        '<span class="rating-text"><strong>' + ratingNum + '</strong> (' + ratingCountText + ')</span>' +
+                    '</div>' +
+                    '<div class="user-rating">' +
+                        '<span class="user-rating-label">Your rating:</span>' +
+                        renderInteractiveStars(itemId, userRating) +
+                        userRatingText +
+                    '</div>';
+
+                var container = ratingSection.querySelector('.stars-interactive');
+                if (container) {
+                    var btns = container.querySelectorAll('.star-btn');
+                    btns.forEach(function (btn) {
+                        btn.addEventListener('mouseenter', function () {
+                            var star = parseInt(btn.dataset.star);
+                            btns.forEach(function (b) {
+                                b.classList.toggle('hovered', parseInt(b.dataset.star) <= star);
+                            });
+                        });
+                        btn.addEventListener('mouseleave', function () {
+                            btns.forEach(function (b) { b.classList.remove('hovered'); });
+                        });
+                        btn.addEventListener('click', function () {
+                            submitRating(itemId, parseInt(btn.dataset.star));
+                        });
+                    });
+                }
+            }
+
+            // ========================================
+            // ESCAPE HTML
+            // ========================================
+            function escapeHtml(str) {
+                if (!str) return '';
+                var div = document.createElement('div');
+                div.appendChild(document.createTextNode(str));
+                return div.innerHTML;
+            }
+
+            // ========================================
+            // AUTH STATE
+            // ========================================
+            function updateAuthUI(user) {
+                var headerAuth = document.getElementById('headerAuth');
+                var mobileAuth = document.getElementById('mobileAuth');
+                var initial = user.name ? user.name.charAt(0).toUpperCase() : '?';
+
+                headerAuth.innerHTML =
+                    '<a href="/rewards.html" class="user-avatar" title="' + escapeHtml(user.name) + '">' + initial + '</a>';
+
+                mobileAuth.innerHTML =
+                    '<a href="/rewards.html" style="display:flex;align-items:center;gap:0.75rem;border-bottom:none;padding:1rem 0;text-transform:none;letter-spacing:0;">' +
+                        '<span class="user-avatar" style="width:30px;height:30px;font-size:0.75rem;">' + initial + '</span>' +
+                        '<span style="color:var(--color-primary);font-weight:500;font-size:0.85rem;">' + escapeHtml(user.name ? user.name.split(' ')[0] : '') + '</span>' +
+                    '</a>';
+            }
+
+            // ========================================
+            // INITIALIZE
+            // ========================================
+            async function init() {
+                try {
+                    var menuRes = await fetch('/.netlify/functions/get-menu');
+                    if (!menuRes.ok) throw new Error('Failed to load menu');
+                    var menuData = await menuRes.json();
+                    allMenuItems = menuData.menuItems || [];
+                } catch (err) {
+                    console.error('Menu fetch error:', err);
+                    document.getElementById('menuGrid').innerHTML =
+                        '<div class="menu-empty"><h3>Unable to load menu</h3><p>Please refresh the page or try again later.</p></div>';
+                    return;
+                }
+
+                if (userToken) {
+                    try {
+                        var [userRes, ratingsRes] = await Promise.all([
+                            fetch('/.netlify/functions/get-user', {
+                                headers: { 'Authorization': 'Bearer ' + userToken }
+                            }),
+                            fetch('/.netlify/functions/get-ratings', {
+                                headers: { 'Authorization': 'Bearer ' + userToken }
+                            })
+                        ]);
+
+                        if (userRes.ok) {
+                            var userData = await userRes.json();
+                            isLoggedIn = true;
+                            userName = userData.name || '';
+                            updateAuthUI(userData);
+                        }
+
+                        if (ratingsRes.ok) {
+                            var ratingsData = await ratingsRes.json();
+                            (ratingsData.ratings || []).forEach(function (r) {
+                                if (r.menuItemId) {
+                                    userRatings[r.menuItemId] = r.stars;
+                                }
+                            });
+                        }
+                    } catch (err) {
+                        console.error('Auth fetch error:', err);
+                        localStorage.removeItem('userToken');
+                        userToken = null;
+                    }
+                }
+
+                renderMenu();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>

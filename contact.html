@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Sushi GoGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #D63031;
+      --color-black: #1a1a1a;
+      --color-cream: #FFF5F0;
+      --color-warm-white: #FFFAF7;
+      --color-border: #e8ddd6;
+      --color-text: #2D3436;
+      --color-text-light: #636E72;
+      --color-success: #16a34a;
+      --color-error: #dc2626;
+      --color-warning: #d4a843;
+      --font-display: 'DM Serif Display', 'Georgia', serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: var(--color-warm-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── Header ─── */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: #fff;
+      transition: border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-header.scrolled {
+      border-bottom-color: var(--color-border);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-circle span {
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: #fff;
+      letter-spacing: 0.5px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-icon-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .header-icon-btn:hover {
+      color: var(--color-primary);
+    }
+
+    .header-icon-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .hamburger {
+      width: 40px;
+      height: 40px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text);
+    }
+
+    .hamburger svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: 16px 24px;
+      z-index: 999;
+    }
+
+    .mobile-nav.open {
+      display: block;
+    }
+
+    .mobile-nav a {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-text);
+      text-decoration: none;
+      padding: 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 1px solid var(--color-cream);
+    }
+
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: var(--color-primary);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 140px 24px 80px;
+      text-align: center;
+      background-color: var(--color-cream);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-light);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 400;
+      color: var(--color-black);
+      line-height: 1.15;
+    }
+
+    .hero-accent {
+      display: block;
+      width: 60px;
+      height: 1px;
+      background-color: var(--color-border);
+      margin: 28px auto 0;
+    }
+
+    /* ─── Contact Section ─── */
+    .contact-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Form */
+    .contact-form-card {
+      border: 1px solid var(--color-border);
+      padding: 40px 36px;
+      background-color: var(--color-warm-white);
+    }
+
+    .contact-form-card h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--color-black);
+      margin-bottom: 8px;
+    }
+
+    .contact-form-card .form-subtitle {
+      font-size: 14px;
+      color: var(--color-text-light);
+      margin-bottom: 32px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text);
+      background-color: #fff;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #b0a99f;
+      font-weight: 300;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--color-primary);
+    }
+
+    .form-textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: var(--color-black);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 0.25s ease, transform 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background-color: var(--color-primary);
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: scale(0.985);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Contact Info */
+    .contact-info-card {
+      border: 1px solid var(--color-border);
+      padding: 40px 36px;
+      background-color: var(--color-warm-white);
+    }
+
+    .contact-info-card h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--color-black);
+      margin-bottom: 28px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-item:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+
+    .info-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .info-content h3 {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .info-content p {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .info-content a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .info-content a:hover {
+      text-decoration: underline;
+    }
+
+    .map-placeholder {
+      margin-top: 28px;
+      background-color: var(--color-cream);
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border);
+    }
+
+    .map-placeholder-inner {
+      text-align: center;
+      color: var(--color-text-light);
+    }
+
+    .map-placeholder-inner svg {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 8px;
+      opacity: 0.4;
+    }
+
+    .map-placeholder-inner span {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* ─── Toast ─── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background-color: #fff;
+      border: 1px solid var(--color-border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2000;
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      max-width: 420px;
+      width: calc(100% - 48px);
+    }
+
+    .toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #f0fdf4;
+      color: var(--color-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toast-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .toast-content h4 {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-black);
+      margin-bottom: 2px;
+    }
+
+    .toast-content p {
+      font-size: 13px;
+      color: var(--color-text-light);
+      font-weight: 300;
+    }
+
+    /* ─── FAQ Section ─── */
+    .faq-section {
+      background-color: var(--color-cream);
+      padding: 80px 24px;
+    }
+
+    .faq-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .faq-header .section-label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+
+    .faq-header .section-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--color-black);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-item {
+      border: 1px solid var(--color-border);
+      border-bottom: none;
+      background-color: var(--color-warm-white);
+      overflow: hidden;
+    }
+
+    .faq-item:last-child {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+      text-align: left;
+      transition: color 0.2s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--color-primary);
+    }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--color-text-light);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ─── Footer ─── */
+    .site-footer {
+      background-color: var(--color-cream);
+      padding: 60px 24px 32px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--color-black);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .footer-card {
+      border: 1px solid var(--color-border);
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .footer-card h4 {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--color-text);
+      margin-bottom: 16px;
+    }
+
+    .footer-card p {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .footer-card a {
+      color: var(--color-text-light);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-card a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-social-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .footer-social-icons a {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text);
+      transition: color 0.2s ease;
+    }
+
+    .footer-social-icons a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-social-icons svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-tag-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: 50px;
+      padding: 8px 20px;
+      text-decoration: none;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .footer-tag-pill:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 24px;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--color-text-light);
+      font-weight: 300;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero {
+        padding: 120px 20px 60px;
+      }
+
+      .hero-title {
+        font-size: 36px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 30px;
+      }
+
+      .contact-form-card,
+      .contact-info-card {
+        padding: 28px 20px;
+      }
+
+      .faq-header .section-title {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="/" class="header-logo">
+        <div class="logo-circle">
+          <span>Sushi<br>GoGo</span>
+        </div>
+      </a>
+      <nav class="header-nav" id="desktopNav">
+        <a href="rewards.html" class="header-icon-btn" id="userLink" style="display:none;" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="login.html" class="header-icon-btn" id="authLink" aria-label="Sign In">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+          <svg id="hamburgerIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          <svg id="closeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </nav>
+      <button class="hamburger" id="hamburgerBtnMobile" aria-label="Open menu" style="display:none;">
+        <svg id="hamburgerIconMobile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg id="closeIconMobile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="login.html" id="mobileAuthLink">Sign In</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-subtitle">Contact Us</p>
+    <h1 class="hero-title">Get in Touch</h1>
+    <span class="hero-accent"></span>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section">
+    <div class="contact-grid">
+      <!-- Contact Form -->
+      <div class="contact-form-card">
+        <h2>Send Us a Message</h2>
+        <p class="form-subtitle">We would love to hear from you. Fill out the form below and we will get back to you as soon as possible.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your name"
+              autocomplete="name"
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              name="message"
+              placeholder="How can we help?"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-text">SEND MESSAGE</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-info-card">
+        <h2>Visit Us</h2>
+
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Address</h3>
+            <p>Rivertown Crossings Mall<br>3700 Rivertown Pkwy<br>Grandville, MI 49418</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Phone</h3>
+            <p>Food Court, Lower Level</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Email</h3>
+            <p><a href="mailto:hello@sushigogo.com">hello@sushigogo.com</a></p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Hours</h3>
+            <p>Mon&ndash;Sat: 10am&ndash;9pm<br>Sun: 11am&ndash;6pm</p>
+          </div>
+        </div>
+
+        <div class="map-placeholder">
+          <div class="map-placeholder-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>Map</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <div class="faq-header">
+        <p class="section-label">Common Questions</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can I order ahead online?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes! You can browse our full menu and place an order ahead of time through our website. Just select your items, choose a pickup time, and your order will be ready when you arrive at the kiosk. No waiting in line.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Where exactly are you in the mall?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We are located in the food court on the lower level of Rivertown Crossings Mall. You can find us near the center of the food court. Free parking is available throughout the mall parking lot.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Do you offer large party orders?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolutely! We can prepare sushi platters for office lunches, parties, and events. Please contact us using the form above or give us a call to discuss your order. We recommend placing large orders at least 24 hours in advance.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Do you have vegetarian options?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes! We offer several vegetarian options including our Avocado Roll, Veggie Rice Bowl, edamame, seaweed salad, and more. Let us know about any dietary preferences and we will be happy to help you find the perfect meal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div class="toast" id="successToast" role="alert">
+    <div class="toast-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <div class="toast-content">
+      <h4>Message Sent!</h4>
+      <p>We will get back to you soon.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Sushi GoGo</div>
+      <div class="footer-grid">
+        <div class="footer-card">
+          <h4>Find Us</h4>
+          <p>
+            Rivertown Crossings Mall<br>
+            3700 Rivertown Pkwy<br>
+            Grandville, MI 49418
+          </p>
+        </div>
+        <div class="footer-card">
+          <h4>Hours</h4>
+          <p>
+            Mon&ndash;Sat: 10am&ndash;9pm<br>
+            Sun: 11am&ndash;6pm
+          </p>
+        </div>
+        <div class="footer-card">
+          <h4>Get Social</h4>
+          <div class="footer-social-icons">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.05a8.18 8.18 0 004.76 1.52V7.12a4.82 4.82 0 01-1-.43z"/></svg>
+            </a>
+          </div>
+          <a href="#" class="footer-tag-pill">#SushiGoGo</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Sushi GoGo. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // ─── Mobile hamburger toggle ───
+      var hamburgerBtn = document.getElementById('hamburgerBtn');
+      var hamburgerBtnMobile = document.getElementById('hamburgerBtnMobile');
+      var mobileNav = document.getElementById('mobileNav');
+      var hamburgerIcon = document.getElementById('hamburgerIcon');
+      var closeIcon = document.getElementById('closeIcon');
+      var hamburgerIconMobile = document.getElementById('hamburgerIconMobile');
+      var closeIconMobile = document.getElementById('closeIconMobile');
+      var isMenuOpen = false;
+
+      function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileNav.classList.toggle('open', isMenuOpen);
+        hamburgerIcon.style.display = isMenuOpen ? 'none' : 'block';
+        closeIcon.style.display = isMenuOpen ? 'block' : 'none';
+        if (hamburgerIconMobile) hamburgerIconMobile.style.display = isMenuOpen ? 'none' : 'block';
+        if (closeIconMobile) closeIconMobile.style.display = isMenuOpen ? 'block' : 'none';
+      }
+
+      hamburgerBtn.addEventListener('click', toggleMenu);
+      if (hamburgerBtnMobile) hamburgerBtnMobile.addEventListener('click', toggleMenu);
+
+      // ─── Header scroll border ───
+      var header = document.getElementById('siteHeader');
+
+      function updateHeaderScroll() {
+        if (window.scrollY > 10) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+
+      window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+      updateHeaderScroll();
+
+      // ─── Auth state ───
+      var token = localStorage.getItem('userToken');
+      var authLink = document.getElementById('authLink');
+      var userLink = document.getElementById('userLink');
+      var mobileAuthLink = document.getElementById('mobileAuthLink');
+
+      if (token) {
+        authLink.style.display = 'none';
+        userLink.style.display = 'flex';
+        mobileAuthLink.textContent = 'My Account';
+        mobileAuthLink.href = 'rewards.html';
+      }
+
+      // ─── Contact form submit ───
+      var contactForm = document.getElementById('contactForm');
+      var submitBtn = document.getElementById('submitBtn');
+      var successToast = document.getElementById('successToast');
+      var toastTimer = null;
+
+      function showToast() {
+        successToast.classList.add('visible');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          successToast.classList.remove('visible');
+        }, 4000);
+      }
+
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var name = document.getElementById('name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !message) {
+          return;
+        }
+
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          return;
+        }
+
+        contactForm.reset();
+        showToast();
+      });
+
+      // ─── FAQ accordion ───
+      var faqItems = document.querySelectorAll('.faq-item');
+
+      faqItems.forEach(function (item) {
+        var question = item.querySelector('.faq-question');
+        var answer = item.querySelector('.faq-answer');
+
+        question.addEventListener('click', function () {
+          var isOpen = item.classList.contains('open');
+
+          // Close all other items
+          faqItems.forEach(function (otherItem) {
+            if (otherItem !== item && otherItem.classList.contains('open')) {
+              otherItem.classList.remove('open');
+              otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+              otherItem.querySelector('.faq-answer').style.maxHeight = '0';
+            }
+          });
+
+          // Toggle current item
+          if (isOpen) {
+            item.classList.remove('open');
+            question.setAttribute('aria-expanded', 'false');
+            answer.style.maxHeight = '0';
+          } else {
+            item.classList.add('open');
+            question.setAttribute('aria-expanded', 'true');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

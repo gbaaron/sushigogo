@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Sushi GoGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #D63031;
+      --color-black: #1a1a1a;
+      --color-cream: #FFF5F0;
+      --color-warm-white: #FFFAF7;
+      --color-border: #e8ddd6;
+      --color-text: #2D3436;
+      --color-text-light: #636E72;
+      --color-success: #16a34a;
+      --color-error: #dc2626;
+      --font-display: 'DM Serif Display', 'Georgia', serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-cream);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 400;
+      color: #fff;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: 0.5px;
+    }
+
+    /* Heading */
+    .auth-heading {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--color-black);
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* Message area */
+    .message-area {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .message-area.error {
+      display: flex;
+      background-color: #fef2f2;
+      color: var(--color-error);
+      border: 1px solid #fecaca;
+    }
+
+    .message-area.success {
+      display: flex;
+      background-color: #f0fdf4;
+      color: var(--color-success);
+      border: 1px solid #bbf7d0;
+    }
+
+    .message-area svg {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text);
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+    }
+
+    .form-label .optional {
+      font-weight: 400;
+      color: var(--color-text-light);
+      font-size: 12px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-black);
+      background-color: #fff;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input::placeholder {
+      color: #b0a99f;
+      font-weight: 300;
+    }
+
+    .form-input:focus {
+      border-color: var(--color-black);
+    }
+
+    .form-input.input-error {
+      border-color: var(--color-error);
+    }
+
+    .form-input[type="password"],
+    .form-input.password-field {
+      padding-right: 44px;
+    }
+
+    .field-error {
+      font-size: 13px;
+      color: var(--color-error);
+      margin-top: 5px;
+      display: none;
+      font-weight: 400;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* Password toggle */
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-light);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
+    }
+
+    .password-toggle:hover {
+      color: var(--color-black);
+    }
+
+    .password-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Password strength indicator */
+    .strength-container {
+      margin-top: 10px;
+    }
+
+    .strength-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .strength-segment {
+      flex: 1;
+      height: 3px;
+      background-color: #ddd;
+      transition: background-color 0.3s ease;
+    }
+
+    .strength-segment.active.weak {
+      background-color: var(--color-error);
+    }
+
+    .strength-segment.active.fair {
+      background-color: #f59e0b;
+    }
+
+    .strength-segment.active.good {
+      background-color: #65a30d;
+    }
+
+    .strength-segment.active.strong {
+      background-color: var(--color-success);
+    }
+
+    .strength-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-light);
+      min-height: 16px;
+    }
+
+    .strength-label.weak { color: var(--color-error); }
+    .strength-label.fair { color: #f59e0b; }
+    .strength-label.good { color: #65a30d; }
+    .strength-label.strong { color: var(--color-success); }
+
+    /* Checkbox */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .checkbox-input {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: var(--color-black);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text);
+      cursor: pointer;
+      user-select: none;
+      line-height: 1.4;
+    }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: var(--color-primary);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 50px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background-color: #b52728;
+    }
+
+    .submit-btn:active:not(:disabled) {
+      background-color: #a02020;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .submit-btn .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+
+    .submit-btn.loading .spinner {
+      display: block;
+    }
+
+    .submit-btn.loading .btn-text {
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Footer link */
+    .auth-footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+    }
+
+    .auth-footer a {
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s ease;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      body {
+        padding: 24px 16px;
+        align-items: flex-start;
+        padding-top: 32px;
+      }
+
+      .logo {
+        margin-bottom: 28px;
+      }
+
+      .logo-circle {
+        width: 68px;
+        height: 68px;
+      }
+
+      .logo-text {
+        font-size: 10px;
+      }
+
+      .auth-heading {
+        font-size: 24px;
+        margin-bottom: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="logo">
+      <div class="logo-circle">
+        <span class="logo-text">Sushi<br>GoGo</span>
+      </div>
+    </div>
+
+    <h1 class="auth-heading">Create Your Account</h1>
+
+    <div id="messageArea" class="message-area" role="alert">
+      <svg id="messageIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+      <span id="messageText"></span>
+    </div>
+
+    <form id="signupForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          class="form-input"
+          placeholder="Your full name"
+          required
+          autocomplete="name"
+        >
+        <div class="field-error" id="nameError">Please enter your name</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-input"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+        >
+        <div class="field-error" id="emailError">Please enter a valid email address</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone <span class="optional">(optional)</span></label>
+        <input
+          type="tel"
+          id="phone"
+          class="form-input"
+          placeholder="(555) 123-4567"
+          autocomplete="tel"
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-wrapper">
+          <input
+            type="password"
+            id="password"
+            class="form-input password-field"
+            placeholder="At least 8 characters"
+            required
+            minlength="8"
+            autocomplete="new-password"
+          >
+          <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-icon">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-off-icon" style="display:none;">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </button>
+        </div>
+        <div class="field-error" id="passwordError">Password must be at least 8 characters</div>
+        <div class="strength-container" id="strengthContainer" style="display:none;">
+          <div class="strength-bar">
+            <div class="strength-segment" id="seg1"></div>
+            <div class="strength-segment" id="seg2"></div>
+            <div class="strength-segment" id="seg3"></div>
+            <div class="strength-segment" id="seg4"></div>
+          </div>
+          <div class="strength-label" id="strengthLabel"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="confirmPassword">Confirm Password</label>
+        <div class="input-wrapper">
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-input password-field"
+            placeholder="Re-enter your password"
+            required
+            autocomplete="new-password"
+          >
+          <button type="button" class="password-toggle" id="confirmPasswordToggle" aria-label="Show password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-icon">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-off-icon" style="display:none;">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </button>
+        </div>
+        <div class="field-error" id="confirmPasswordError">Passwords do not match</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="birthday">Birthday <span class="optional">(optional)</span></label>
+        <input
+          type="date"
+          id="birthday"
+          class="form-input"
+          autocomplete="bday"
+        >
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="marketing" class="checkbox-input" checked>
+        <label for="marketing" class="checkbox-label">
+          Send me updates about new menu items, rewards, and special offers
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Create Account</span>
+        <div class="spinner"></div>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const form = document.getElementById('signupForm');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const birthdayInput = document.getElementById('birthday');
+      const marketingCheckbox = document.getElementById('marketing');
+      const submitBtn = document.getElementById('submitBtn');
+      const messageArea = document.getElementById('messageArea');
+      const messageText = document.getElementById('messageText');
+      const messageIcon = document.getElementById('messageIcon');
+
+      // Password toggle
+      function setupPasswordToggle(toggleBtn, input) {
+        toggleBtn.addEventListener('click', function() {
+          const isPassword = input.type === 'password';
+          input.type = isPassword ? 'text' : 'password';
+          const eyeIcon = toggleBtn.querySelector('.eye-icon');
+          const eyeOffIcon = toggleBtn.querySelector('.eye-off-icon');
+          eyeIcon.style.display = isPassword ? 'none' : 'block';
+          eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+          toggleBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+          input.focus();
+        });
+      }
+
+      setupPasswordToggle(document.getElementById('passwordToggle'), passwordInput);
+      setupPasswordToggle(document.getElementById('confirmPasswordToggle'), confirmPasswordInput);
+
+      // Phone number auto-formatting
+      phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 10) {
+          value = value.slice(0, 10);
+        }
+        let formatted = '';
+        if (value.length > 0) {
+          formatted = '(' + value.slice(0, 3);
+        }
+        if (value.length >= 3) {
+          formatted += ') ' + value.slice(3, 6);
+        }
+        if (value.length >= 6) {
+          formatted += '-' + value.slice(6, 10);
+        }
+        e.target.value = formatted;
+      });
+
+      // Password strength indicator
+      const strengthContainer = document.getElementById('strengthContainer');
+      const strengthLabel = document.getElementById('strengthLabel');
+      const segments = [
+        document.getElementById('seg1'),
+        document.getElementById('seg2'),
+        document.getElementById('seg3'),
+        document.getElementById('seg4')
+      ];
+
+      function evaluateStrength(password) {
+        if (!password) return { score: 0, label: '' };
+        let score = 0;
+        if (password.length >= 8) score++;
+        if (/[A-Z]/.test(password)) score++;
+        if (/[a-z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^A-Za-z0-9]/.test(password)) score++;
+
+        if (score <= 1) return { score: 1, label: 'Weak', level: 'weak' };
+        if (score === 2) return { score: 2, label: 'Fair', level: 'fair' };
+        if (score === 3 || score === 4) return { score: 3, label: 'Good', level: 'good' };
+        return { score: 4, label: 'Strong', level: 'strong' };
+      }
+
+      passwordInput.addEventListener('input', function() {
+        const val = passwordInput.value;
+        if (val.length === 0) {
+          strengthContainer.style.display = 'none';
+          return;
+        }
+        strengthContainer.style.display = 'block';
+        const strength = evaluateStrength(val);
+
+        segments.forEach(function(seg, i) {
+          seg.className = 'strength-segment';
+          if (i < strength.score) {
+            seg.classList.add('active', strength.level);
+          }
+        });
+
+        strengthLabel.textContent = strength.label;
+        strengthLabel.className = 'strength-label ' + (strength.level || '');
+      });
+
+      // Field validation helpers
+      function showFieldError(input, errorEl, msg) {
+        input.classList.add('input-error');
+        if (msg) errorEl.textContent = msg;
+        errorEl.classList.add('visible');
+      }
+
+      function clearFieldError(input, errorEl) {
+        input.classList.remove('input-error');
+        errorEl.classList.remove('visible');
+      }
+
+      // Clear errors on input
+      nameInput.addEventListener('input', function() {
+        clearFieldError(nameInput, document.getElementById('nameError'));
+      });
+      emailInput.addEventListener('input', function() {
+        clearFieldError(emailInput, document.getElementById('emailError'));
+      });
+      passwordInput.addEventListener('input', function() {
+        clearFieldError(passwordInput, document.getElementById('passwordError'));
+        if (confirmPasswordInput.value) {
+          if (confirmPasswordInput.value === passwordInput.value) {
+            clearFieldError(confirmPasswordInput, document.getElementById('confirmPasswordError'));
+          }
+        }
+      });
+      confirmPasswordInput.addEventListener('input', function() {
+        clearFieldError(confirmPasswordInput, document.getElementById('confirmPasswordError'));
+      });
+
+      // Show message
+      function showMessage(type, text) {
+        messageArea.className = 'message-area ' + type;
+        messageText.textContent = text;
+        if (type === 'error') {
+          messageIcon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>';
+        } else {
+          messageIcon.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+        }
+        messageArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function hideMessage() {
+        messageArea.className = 'message-area';
+      }
+
+      // Set loading state
+      function setLoading(loading) {
+        if (loading) {
+          submitBtn.classList.add('loading');
+          submitBtn.disabled = true;
+        } else {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+        }
+      }
+
+      // Form validation
+      function validateForm() {
+        let valid = true;
+        hideMessage();
+
+        // Name
+        if (!nameInput.value.trim()) {
+          showFieldError(nameInput, document.getElementById('nameError'), 'Please enter your name');
+          valid = false;
+        } else {
+          clearFieldError(nameInput, document.getElementById('nameError'));
+        }
+
+        // Email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput.value.trim()) {
+          showFieldError(emailInput, document.getElementById('emailError'), 'Please enter your email address');
+          valid = false;
+        } else if (!emailRegex.test(emailInput.value.trim())) {
+          showFieldError(emailInput, document.getElementById('emailError'), 'Please enter a valid email address');
+          valid = false;
+        } else {
+          clearFieldError(emailInput, document.getElementById('emailError'));
+        }
+
+        // Password
+        if (!passwordInput.value) {
+          showFieldError(passwordInput, document.getElementById('passwordError'), 'Please enter a password');
+          valid = false;
+        } else if (passwordInput.value.length < 8) {
+          showFieldError(passwordInput, document.getElementById('passwordError'), 'Password must be at least 8 characters');
+          valid = false;
+        } else {
+          clearFieldError(passwordInput, document.getElementById('passwordError'));
+        }
+
+        // Confirm password
+        if (!confirmPasswordInput.value) {
+          showFieldError(confirmPasswordInput, document.getElementById('confirmPasswordError'), 'Please confirm your password');
+          valid = false;
+        } else if (confirmPasswordInput.value !== passwordInput.value) {
+          showFieldError(confirmPasswordInput, document.getElementById('confirmPasswordError'), 'Passwords do not match');
+          valid = false;
+        } else {
+          clearFieldError(confirmPasswordInput, document.getElementById('confirmPasswordError'));
+        }
+
+        return valid;
+      }
+
+      // Form submit
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        if (!validateForm()) {
+          return;
+        }
+
+        setLoading(true);
+        hideMessage();
+
+        var payload = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          phone: phoneInput.value.replace(/\D/g, '') || '',
+          password: passwordInput.value,
+          marketingEmails: marketingCheckbox.checked
+        };
+
+        if (birthdayInput.value) {
+          payload.birthday = birthdayInput.value;
+        }
+
+        try {
+          var response = await fetch('/.netlify/functions/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          var data = await response.json();
+
+          if (!response.ok) {
+            showMessage('error', data.error || 'Something went wrong. Please try again.');
+            setLoading(false);
+            return;
+          }
+
+          showMessage('success', 'Account created! Redirecting...');
+          sessionStorage.setItem('welcomeName', data.name || nameInput.value.trim());
+
+          setTimeout(function() {
+            window.location.href = 'rewards.html';
+          }, 800);
+
+        } catch (err) {
+          showMessage('error', 'Unable to connect. Please check your internet connection and try again.');
+          setLoading(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Sushi GoGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #D63031;
+      --color-black: #1a1a1a;
+      --color-cream: #FFF5F0;
+      --color-warm-white: #FFFAF7;
+      --color-border: #e8ddd6;
+      --color-text: #2D3436;
+      --color-text-light: #636E72;
+      --color-success: #16a34a;
+      --color-error: #dc2626;
+      --font-display: 'DM Serif Display', 'Georgia', serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-cream);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 400;
+      color: #fff;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: 0.5px;
+    }
+
+    /* Heading */
+    .auth-heading {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--color-black);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .auth-subheading {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* Error message */
+    .error-message {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-error);
+      line-height: 1.4;
+    }
+
+    .error-message.visible {
+      display: flex;
+    }
+
+    .error-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text);
+      letter-spacing: 0.3px;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-black);
+      background-color: #fff;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input::placeholder {
+      color: #b0a99f;
+      font-weight: 300;
+    }
+
+    .form-input:focus {
+      border-color: var(--color-black);
+    }
+
+    .form-input[type="password"],
+    .form-input.password-field {
+      padding-right: 44px;
+    }
+
+    /* Password toggle */
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--color-text-light);
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .password-toggle:hover {
+      color: var(--color-black);
+    }
+
+    .password-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: var(--color-primary);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+      margin-top: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background-color: #b52728;
+    }
+
+    .submit-btn:active:not(:disabled) {
+      background-color: #a02020;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-text {
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .submit-btn.loading .btn-text {
+      opacity: 0;
+      position: absolute;
+    }
+
+    .submit-btn.loading .btn-spinner {
+      display: block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Footer link */
+    .auth-footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-text-light);
+    }
+
+    .auth-footer a {
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s ease;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      body {
+        padding: 32px 16px;
+        align-items: flex-start;
+        padding-top: 60px;
+      }
+
+      .logo {
+        margin-bottom: 32px;
+      }
+
+      .logo-circle {
+        width: 68px;
+        height: 68px;
+      }
+
+      .logo-text {
+        font-size: 10px;
+      }
+
+      .auth-heading {
+        font-size: 24px;
+      }
+
+      .auth-subheading {
+        margin-bottom: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="logo">
+      <div class="logo-circle">
+        <span class="logo-text">Sushi<br>GoGo</span>
+      </div>
+    </div>
+
+    <h1 class="auth-heading">Welcome Back</h1>
+    <p class="auth-subheading">Sign in to your account</p>
+
+    <div class="error-message" id="errorMessage" role="alert">
+      <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span id="errorText"></span>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <div class="input-wrapper">
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-wrapper">
+          <input
+            class="form-input password-field"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+          <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password">
+            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg id="eyeOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Sign In</span>
+        <span class="btn-spinner"></span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Don't have an account? <a href="signup.html">Sign up</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitBtn');
+      const errorMessage = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+      const passwordToggle = document.getElementById('passwordToggle');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+      // Password visibility toggle
+      passwordToggle.addEventListener('click', function () {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        eyeIcon.style.display = isPassword ? 'none' : 'block';
+        eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+        passwordToggle.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+        passwordInput.focus();
+      });
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.add('visible');
+      }
+
+      function hideError() {
+        errorMessage.classList.remove('visible');
+        errorText.textContent = '';
+      }
+
+      function setLoading(loading) {
+        if (loading) {
+          submitBtn.classList.add('loading');
+          submitBtn.disabled = true;
+        } else {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+        }
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        hideError();
+
+        var email = emailInput.value.trim();
+        var password = passwordInput.value;
+
+        // Validation
+        if (!email) {
+          showError('Please enter your email address.');
+          emailInput.focus();
+          return;
+        }
+
+        if (!password) {
+          showError('Please enter your password.');
+          passwordInput.focus();
+          return;
+        }
+
+        setLoading(true);
+
+        try {
+          var response = await fetch('/.netlify/functions/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
+          });
+
+          var data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || data.error || 'Invalid email or password.');
+          }
+
+          // Store authentication data
+          if (data.token) {
+            localStorage.setItem('userToken', data.token);
+          }
+          if (data.userId) {
+            localStorage.setItem('userId', data.userId);
+          }
+          if (data.isAdmin) {
+            localStorage.setItem('isAdmin', 'true');
+          }
+
+          // Redirect to rewards page
+          window.location.href = 'rewards.html';
+
+        } catch (err) {
+          showError(err.message || 'Something went wrong. Please try again.');
+        } finally {
+          setLoading(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+Name,Category,Price,Description,ImageURL,BonusPoints,IsAvailable,AvgRating,RatingCount,SortOrder
+Dragon Roll,Signature Rolls,14.99,"Shrimp tempura inside topped with sliced avocado and eel, drizzled with sweet unagi sauce and sesame seeds. A legendary roll that never disappoints.",,20,true,0,0,10
+Rainbow Roll,Signature Rolls,15.99,"A California Roll draped in a colorful array of fresh salmon, tuna, yellowtail, shrimp, and avocado. Almost too beautiful to eat — almost.",,22,true,0,0,20
+Volcano Roll,Signature Rolls,13.99,"Crab and avocado roll baked with a fiery spicy mayo and tobiko topping that erupts with flavor in every bite.",,18,true,0,0,30
+Spicy Tuna Crunch,Signature Rolls,12.99,"Fresh spicy tuna and cucumber wrapped in soy paper, finished with crispy tempura flakes for the perfect crunch.",,17,true,0,0,40
+Mango Tango Roll,Signature Rolls,13.99,"A tropical twist with fresh mango, shrimp tempura, and cream cheese, topped with mango slices and a tangy citrus glaze.",,18,true,0,0,50
+GoGo Special Roll,Signature Rolls,16.99,"Our house masterpiece — lobster tempura, spicy crab, avocado, and jalapeño, topped with seared torch salmon and truffle drizzle. The roll that put us on the map.",,25,true,0,0,60
+California Roll,Classic Rolls,9.99,"The timeless crowd-pleaser with real crab, creamy avocado, and crisp cucumber wrapped in seasoned sushi rice and nori.",,8,true,0,0,100
+Spicy Salmon Roll,Classic Rolls,11.99,"Buttery salmon mixed with our house spicy mayo and scallions, delivering a rich kick with every slice.",,10,true,0,0,110
+Shrimp Tempura Roll,Classic Rolls,12.99,"Golden crispy shrimp tempura paired with avocado and cucumber, finished with a drizzle of eel sauce. Crunch lovers rejoice.",,12,true,0,0,120
+Avocado Roll,Classic Rolls,7.99,"Simple, clean, and satisfying — perfectly ripe avocado rolled in seasoned rice and nori. A plant-based favorite.",,5,true,0,0,130
+Philly Roll,Classic Rolls,10.99,"Silky smoked salmon and velvety cream cheese with cucumber, delivering East Coast deli vibes in sushi form.",,9,true,0,0,140
+Salmon Poke Bowl,Bowls,14.99,"Fresh cubed salmon over warm sushi rice with edamame, cucumber, avocado, seaweed salad, and our signature sesame-soy poke sauce.",,15,true,0,0,200
+Chicken Teriyaki Bowl,Bowls,12.99,"Juicy grilled chicken glazed in our house-made teriyaki, served over steamed rice with stir-fried veggies and a side of pickled ginger.",,12,true,0,0,210
+Veggie Rice Bowl,Bowls,10.99,"A garden-fresh bowl loaded with avocado, cucumber, pickled radish, edamame, carrots, and tofu over sushi rice with ponzu dressing.",,10,true,0,0,220
+Edamame,Sides,4.99,"Steamed young soybeans tossed in sea salt — the perfect warm-up snack while you wait for your rolls.",,5,true,0,0,300
+Miso Soup,Sides,3.99,"A comforting bowl of dashi broth with silken tofu, wakame seaweed, and sliced scallions. Authentic and soul-warming.",,5,true,0,0,310
+Gyoza (6pc),Sides,6.99,"Six pan-fried pork and vegetable dumplings with crispy golden bottoms, served with house-made ponzu dipping sauce.",,8,true,0,0,320
+Seaweed Salad,Sides,5.99,"Chilled marinated wakame seaweed with a sesame-citrus dressing, garnished with sesame seeds and a hint of chili.",,6,true,0,0,330
+Ramune Soda,Drinks,3.99,"The iconic Japanese marble soda — pop the top for a fizzy burst of fun. Available in original lemon-lime flavor.",,5,true,0,0,400
+Iced Matcha Latte,Drinks,5.99,"Ceremonial-grade matcha whisked smooth and poured over ice with your choice of milk. Creamy, earthy, and energizing.",,8,true,0,0,410
+Green Tea,Drinks,2.99,"A hot cup of traditional Japanese green tea — light, refreshing, and the perfect palate cleanser between courses.",,5,true,0,0,420
+Calpico,Drinks,3.49,"A beloved Japanese yogurt-flavored soft drink with a light, tangy sweetness. Refreshingly smooth and slightly creamy.",,5,true,0,0,430
