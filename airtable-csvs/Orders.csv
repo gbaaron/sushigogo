@@ -1,1 +1,1 @@
-UserID,OrderDate,PickupTime,ItemsList,ItemsJSON,Subtotal,Tax,Total,PointsEarned,Status
+UserID,CustomerName,CustomerEmail,OrderDate,PickupTime,ItemsList,ItemsJSON,Subtotal,Tax,Total,PointsEarned,Status

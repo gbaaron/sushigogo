@@ -28,10 +28,13 @@ exports.handler = async (event) => {
         const decoded = jwt.verify(token, JWT_SECRET);
         const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
-        const user = await base('Users').find(decoded.userId);
-        const orderIds = user.get('Orders') || [];
+        // Query orders by UserID plain text — avoids needing a linked record field
+        const records = await base('Orders').select({
+            filterByFormula: `{UserID} = '${decoded.userId}'`,
+            sort: [{ field: 'OrderDate', direction: 'desc' }]
+        }).all();
 
-        if (orderIds.length === 0) {
+        if (records.length === 0) {
             return {
                 statusCode: 200,
                 headers,
@@ -39,23 +42,20 @@ exports.handler = async (event) => {
             };
         }
 
-        const orderPromises = orderIds.map(id => base('Orders').find(id));
-        const orders = await Promise.all(orderPromises);
-
         const upcoming = [];
         const past = [];
 
-        orders.forEach(order => {
+        records.forEach(record => {
             const orderData = {
-                id: order.id,
-                orderDate: order.get('OrderDate'),
-                pickupTime: order.get('PickupTime'),
-                items: order.get('ItemsList'),
-                subtotal: order.get('Subtotal'),
-                tax: order.get('Tax'),
-                total: order.get('Total'),
-                pointsEarned: order.get('PointsEarned'),
-                status: order.get('Status')
+                id: record.id,
+                orderDate: record.get('OrderDate'),
+                pickupTime: record.get('PickupTime'),
+                items: record.get('ItemsList'),
+                subtotal: record.get('Subtotal'),
+                tax: record.get('Tax'),
+                total: record.get('Total'),
+                pointsEarned: record.get('PointsEarned'),
+                status: record.get('Status')
             };
 
             if (['Pending', 'Preparing', 'Ready'].includes(orderData.status)) {
@@ -64,9 +64,6 @@ exports.handler = async (event) => {
                 past.push(orderData);
             }
         });
-
-        upcoming.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
-        past.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
 
         return {
             statusCode: 200,

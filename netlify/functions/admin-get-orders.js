@@ -47,9 +47,9 @@ exports.handler = async (event) => {
         const records = await base('Orders').select(options).all();
 
         const orders = records.map(record => {
-            const userIds = record.get('UserID') || [];
-            const customerName = record.get('Name (from UserID)') ? record.get('Name (from UserID)')[0] : 'Guest';
-            const customerEmail = record.get('Email (from UserID)') ? record.get('Email (from UserID)')[0] : '';
+            const userId = record.get('UserID') || '';
+            const customerName = record.get('CustomerName') || 'Guest';
+            const customerEmail = record.get('CustomerEmail') || '';
 
             return {
                 id: record.id,
@@ -63,7 +63,7 @@ exports.handler = async (event) => {
                 status: record.get('Status') || 'Pending',
                 customerName,
                 customerEmail,
-                isGuest: !userIds || userIds.length === 0
+                isGuest: !userId
             };
         });
 

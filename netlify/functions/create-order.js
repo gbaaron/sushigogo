@@ -37,6 +37,29 @@ exports.handler = async (event) => {
             }
         }
 
+        // Fetch user record up front (needed for name, email, and points)
+        let userData = null;
+        let currentPoints = 0;
+        let currentSpent = 0;
+
+        if (!isGuest) {
+            userData = await base('Users').find(decoded.userId);
+            currentPoints = userData.get('Points') || 0;
+            currentSpent = userData.get('TotalSpent') || 0;
+
+            // Validate sufficient points BEFORE creating the order
+            if (paymentMethod === 'points') {
+                const newPoints = currentPoints - (pointsRedeemed || 0);
+                if (newPoints < 0) {
+                    return {
+                        statusCode: 400,
+                        headers,
+                        body: JSON.stringify({ error: 'Insufficient points' })
+                    };
+                }
+            }
+        }
+
         // Build order fields
         const orderFields = {
             OrderDate: new Date().toISOString(),
@@ -50,31 +73,22 @@ exports.handler = async (event) => {
             Status: 'Pending'
         };
 
-        // Link to user if logged in
-        if (!isGuest) {
-            orderFields.UserID = [decoded.userId];
+        // Store user info as plain text (not linked record)
+        if (!isGuest && userData) {
+            orderFields.UserID = decoded.userId;
+            orderFields.CustomerName = userData.get('Name') || '';
+            orderFields.CustomerEmail = userData.get('Email') || '';
         }
 
         const order = await base('Orders').create([{ fields: orderFields }]);
 
         // Points and tier logic — only for authenticated users
-        if (!isGuest) {
-            const user = await base('Users').find(decoded.userId);
-            const currentPoints = user.get('Points') || 0;
-            const currentSpent = user.get('TotalSpent') || 0;
-
+        if (!isGuest && userData) {
             let newPoints;
 
             if (paymentMethod === 'points') {
                 // Points redemption — deduct points, earn nothing
                 newPoints = currentPoints - (pointsRedeemed || 0);
-                if (newPoints < 0) {
-                    return {
-                        statusCode: 400,
-                        headers,
-                        body: JSON.stringify({ error: 'Insufficient points' })
-                    };
-                }
             } else {
                 // Money payment — earn points
                 newPoints = currentPoints + (pointsEarned || 0);
