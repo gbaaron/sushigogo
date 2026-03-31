@@ -1538,8 +1538,11 @@
                 var recsGrid = document.getElementById('homeRecsGrid');
                 var recsHtml = '';
                 recs.forEach(function(item) {
+                  var imgHtml = item.imageUrl
+                    ? '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">'
+                    : escapeHtml(item.name);
                   recsHtml += '<a href="menu.html" class="rec-card">'
-                    + '<div class="rec-card-img">' + escapeHtml(item.name) + '</div>'
+                    + '<div class="rec-card-img">' + imgHtml + '</div>'
                     + '<div class="rec-card-body">'
                     + '<div class="rec-card-name">' + escapeHtml(item.name) + '</div>'
                     + '<div class="rec-card-price">$' + (item.price || 0).toFixed(2) + '</div>'

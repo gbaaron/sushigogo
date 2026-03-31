@@ -1514,8 +1514,11 @@
                             recs.forEach(function (item) {
                                 var priceStr = item.price != null ? '$' + parseFloat(item.price).toFixed(2) : '';
                                 var catStr = item.category ? escapeHtml(item.category) : '';
+                                var imgContent = item.imageUrl
+                                    ? '<img src="' + escapeHtml(item.imageUrl) + '" alt="' + escapeHtml(item.name) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">'
+                                    : escapeHtml(item.name || 'ITEM');
                                 recsHtml += '<div class="mp-card" data-rec-id="' + (item.id || '') + '">' +
-                                    '<div class="mp-card-img">' + escapeHtml(item.name || 'ITEM') + '</div>' +
+                                    '<div class="mp-card-img">' + imgContent + '</div>' +
                                     '<div class="mp-card-body">' +
                                         '<div class="mp-card-name">' + escapeHtml(item.name || 'Unnamed') + '</div>' +
                                         '<div class="mp-card-price">' + priceStr + '</div>' +
