@@ -1004,6 +1004,85 @@
             color: var(--color-text-light);
             font-weight: 300;
         }
+
+        /* ========================================
+           CART ICON BADGE
+           ======================================== */
+        .cart-btn { position: relative; }
+        .cart-badge { position: absolute; top: -4px; right: -6px; background: var(--color-primary); color: #fff; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: scale(0); transition: transform 0.2s; }
+        .cart-badge.visible { transform: scale(1); }
+
+        /* ========================================
+           CART OVERLAY & DRAWER
+           ======================================== */
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 1100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .cart-overlay.active { opacity: 1; pointer-events: auto; }
+        .cart-drawer { position: fixed; top: 0; right: 0; width: 400px; max-width: 100vw; height: 100%; background: #fff; z-index: 1110; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
+        .cart-drawer.open { transform: translateX(0); }
+
+        /* ========================================
+           CART SECTIONS
+           ======================================== */
+        .cart-header { padding: 20px 24px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; }
+        .cart-title { font-family: var(--font-display); font-size: 20px; color: var(--color-primary); }
+        .cart-close { background: none; border: none; cursor: pointer; color: var(--color-text-light); padding: 4px; display: flex; }
+        .cart-close:hover { color: var(--color-black); }
+        .cart-body { flex: 1; overflow-y: auto; padding: 16px 24px; }
+        .cart-footer { border-top: 1px solid var(--color-border); padding: 20px 24px; }
+        .cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; text-align: center; color: var(--color-text-light); }
+
+        /* ========================================
+           CART ITEM ROWS
+           ======================================== */
+        .cart-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--color-border); align-items: center; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-weight: 500; font-size: 14px; color: var(--color-black); }
+        .cart-item-price { font-size: 13px; color: var(--color-text-light); margin-top: 2px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 8px; }
+        .qty-btn { width: 28px; height: 28px; border: 1px solid var(--color-border); border-radius: 50%; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; transition: all 0.15s; }
+        .qty-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+        /* ========================================
+           POINTS PRICE ON MENU CARDS
+           ======================================== */
+        .menu-card-points { font-size: 11px; color: #d4a843; font-weight: 500; margin-top: 2px; }
+
+        /* ========================================
+           ADD TO ORDER BUTTON
+           ======================================== */
+        .add-to-cart-btn { display: block; width: 100%; margin-top: 12px; padding: 10px 16px; background: var(--color-black); color: #fff; border: none; border-radius: 2px; font-family: var(--font-body); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background 0.2s; }
+        .add-to-cart-btn:hover { background: var(--color-primary); }
+        .add-to-cart-btn.added { background: #16a34a; }
+
+        /* ========================================
+           CHECKOUT ELEMENTS
+           ======================================== */
+        .checkout-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-text); margin-bottom: 6px; }
+        .checkout-select { width: 100%; padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 8px; font-family: var(--font-body); font-size: 14px; color: var(--color-text); background: var(--color-warm-white); margin-bottom: 16px; }
+        .points-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--color-border); margin-bottom: 12px; }
+        .points-toggle-label { font-size: 14px; font-weight: 500; color: var(--color-text); }
+        .points-balance-text { font-size: 12px; color: #d4a843; font-weight: 600; }
+        .summary-row { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; color: var(--color-text); }
+        .summary-row.total { font-weight: 700; font-size: 16px; border-top: 1px solid var(--color-border); padding-top: 10px; margin-top: 4px; }
+        .summary-row.earn { font-size: 13px; padding-top: 8px; border-top: 1px dashed var(--color-border); margin-top: 4px; }
+        .place-order-btn { display: block; width: 100%; margin-top: 16px; padding: 14px; background: var(--color-primary); color: #fff; border: none; border-radius: 2px; font-family: var(--font-body); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background 0.2s; }
+        .place-order-btn:hover:not(:disabled) { background: #b52728; }
+        .place-order-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* ========================================
+           TOGGLE SWITCH
+           ======================================== */
+        .cart-toggle { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .cart-toggle input { opacity: 0; width: 0; height: 0; }
+        .cart-toggle-slider { position: absolute; inset: 0; background: var(--color-border); border-radius: 24px; cursor: pointer; transition: background 0.3s; }
+        .cart-toggle-slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: transform 0.3s; }
+        .cart-toggle input:checked + .cart-toggle-slider { background: #d4a843; }
+        .cart-toggle input:checked + .cart-toggle-slider::before { transform: translateX(20px); }
+
+        /* ========================================
+           CART MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) { .cart-drawer { width: 100vw; } }
     </style>
 </head>
 <body>
@@ -1022,6 +1101,13 @@
                     </svg>
                 </a>
             </div>
+            <button class="header-icon-btn cart-btn" id="cartBtn" aria-label="Open cart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </button>
             <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
                 <span></span>
                 <span></span>
@@ -1039,6 +1125,28 @@
             <a href="/login.html" class="btn-sign-in">Sign In</a>
         </div>
     </nav>
+
+    <!-- Cart Overlay & Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h2 class="cart-title">Your Order</h2>
+            <button class="cart-close" id="cartClose" aria-label="Close cart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="cart-body" id="cartBody"></div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div><label class="checkout-label">Pickup Time</label><select id="pickupTimeSelect" class="checkout-select"></select></div>
+            <div class="points-toggle-row" id="pointsToggleRow" style="display:none;">
+                <div><div class="points-toggle-label">Pay with Points</div><div class="points-balance-text" id="pointsBalanceText">Balance: 0 pts</div></div>
+                <label class="cart-toggle"><input type="checkbox" id="payWithPointsToggle"><span class="cart-toggle-slider"></span></label>
+            </div>
+            <div id="cartSummary"></div>
+            <button class="place-order-btn" id="placeOrderBtn">Place Order</button>
+            <p id="cartGuestNotice" style="display:none;font-size:12px;color:var(--color-text-light);text-align:center;margin-top:12px;"><a href="login.html" style="color:var(--color-primary);">Sign in</a> to earn points and pay with rewards!</p>
+        </div>
+    </div>
 
     <!-- Page Heading -->
     <section class="page-heading">
@@ -1147,6 +1255,14 @@
             let userRatings = {};
             let userName = '';
             let isLoggedIn = false;
+
+            // Cart state
+            var cart = [];
+            var userPoints = 0;
+            var userTier = 'Bronze';
+            var payWithPoints = false;
+            var TAX_RATE = 0.06;
+            var TIER_MULTIPLIERS = { Bronze: 1, Silver: 1.25, Gold: 1.5 };
 
             const starSVG = '<svg viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
 
@@ -1290,12 +1406,16 @@
                         '</div>';
                 }
 
+                var pointsPrice = item.price != null ? Math.ceil(parseFloat(item.price) * 100) : 0;
+                var pointsHtml = pointsPrice > 0 ? '<div class="menu-card-points">or ' + pointsPrice.toLocaleString() + ' pts</div>' : '';
+                var addBtnHtml = item.isAvailable ? '<button class="add-to-cart-btn" data-item-id="' + item.id + '">Add to Order</button>' : '';
+
                 return '<div class="menu-card' + unavailableClass + '" data-category="' + escapeHtml(item.category || '') + '" data-id="' + item.id + '" style="animation-delay: ' + (index * 0.05) + 's;">' +
                     '<div class="menu-card-image">' + imageHtml + '</div>' +
                     '<div class="menu-card-body">' +
                         '<div class="menu-card-header">' +
-                            '<h3 class="menu-card-name">' + escapeHtml(item.name || 'Unnamed Item') + '</h3>' +
-                            '<span class="menu-card-price">' + priceStr + '</span>' +
+                            '<div><h3 class="menu-card-name">' + escapeHtml(item.name || 'Unnamed Item') + '</h3></div>' +
+                            '<div><span class="menu-card-price">' + priceStr + '</span>' + pointsHtml + '</div>' +
                         '</div>' +
                         '<p class="menu-card-description">' + escapeHtml(item.description || '') + '</p>' +
                         '<div class="rating-section" id="rating-' + item.id + '">' +
@@ -1305,6 +1425,7 @@
                             '</div>' +
                             userRatingHtml +
                         '</div>' +
+                        addBtnHtml +
                     '</div>' +
                 '</div>';
             }
@@ -1484,6 +1605,174 @@
             }
 
             // ========================================
+            // CART FUNCTIONS
+            // ========================================
+            function addToCart(itemId) {
+                var item = allMenuItems.find(function(m) { return m.id === itemId; });
+                if (!item) return;
+                var existing = cart.find(function(c) { return c.id === itemId; });
+                if (existing) { existing.quantity += 1; }
+                else { cart.push({ id: item.id, name: item.name, price: parseFloat(item.price), quantity: 1, bonusPoints: item.bonusPoints || 0 }); }
+                updateCartUI();
+                showToast(item.name + ' added to order');
+                var btn = document.querySelector('.add-to-cart-btn[data-item-id="' + itemId + '"]');
+                if (btn) { btn.textContent = 'Added!'; btn.classList.add('added'); setTimeout(function() { btn.textContent = 'Add to Order'; btn.classList.remove('added'); }, 1000); }
+            }
+
+            function removeFromCart(itemId) { cart = cart.filter(function(c) { return c.id !== itemId; }); updateCartUI(); }
+
+            function updateQuantity(itemId, delta) {
+                var item = cart.find(function(c) { return c.id === itemId; });
+                if (!item) return;
+                item.quantity += delta;
+                if (item.quantity <= 0) removeFromCart(itemId);
+                else updateCartUI();
+            }
+
+            function getCartTotals() {
+                var subtotal = 0, totalPointsPrice = 0, totalBonusPoints = 0;
+                cart.forEach(function(item) {
+                    subtotal += item.price * item.quantity;
+                    totalPointsPrice += Math.ceil(item.price * 100) * item.quantity;
+                    totalBonusPoints += item.bonusPoints * item.quantity;
+                });
+                var tax = payWithPoints ? 0 : Math.round(subtotal * TAX_RATE * 100) / 100;
+                var total = payWithPoints ? 0 : Math.round((subtotal + tax) * 100) / 100;
+                var multiplier = TIER_MULTIPLIERS[userTier] || 1;
+                var pointsEarned = payWithPoints ? 0 : Math.floor(subtotal * multiplier);
+                return { subtotal: Math.round(subtotal * 100) / 100, tax: tax, total: total, pointsPrice: totalPointsPrice, pointsEarned: pointsEarned, bonusPoints: totalBonusPoints, itemCount: cart.reduce(function(s, c) { return s + c.quantity; }, 0) };
+            }
+
+            function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; populatePickupTimes(); }
+            function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+
+            function updateCartUI() {
+                var badge = document.getElementById('cartBadge');
+                var body = document.getElementById('cartBody');
+                var footer = document.getElementById('cartFooter');
+                var totals = getCartTotals();
+                badge.textContent = totals.itemCount;
+                badge.classList.toggle('visible', totals.itemCount > 0);
+                if (cart.length === 0) {
+                    body.innerHTML = '<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="48" height="48"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><p style="margin-top:16px;font-size:15px;font-weight:500;">Your order is empty</p><p style="font-size:13px;margin-top:4px;">Add items from the menu to get started</p></div>';
+                    footer.style.display = 'none';
+                    return;
+                }
+                var html = '';
+                cart.forEach(function(item) {
+                    var itemTotal = (item.price * item.quantity).toFixed(2);
+                    var itemPts = (Math.ceil(item.price * 100) * item.quantity).toLocaleString();
+                    html += '<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">' + escapeHtml(item.name) + '</div><div class="cart-item-price">$' + itemTotal + ' <span style="color:#d4a843;font-size:12px;">/ ' + itemPts + ' pts</span></div></div><div class="cart-item-qty"><button class="qty-btn" data-action="decrease" data-id="' + item.id + '">&minus;</button><span style="font-size:14px;font-weight:600;min-width:20px;text-align:center;">' + item.quantity + '</span><button class="qty-btn" data-action="increase" data-id="' + item.id + '">+</button></div></div>';
+                });
+                body.innerHTML = html;
+                footer.style.display = '';
+                // Points toggle
+                var toggleRow = document.getElementById('pointsToggleRow');
+                var guestNotice = document.getElementById('cartGuestNotice');
+                if (isLoggedIn) {
+                    guestNotice.style.display = 'none';
+                    if (userPoints >= totals.pointsPrice && totals.pointsPrice > 0) { toggleRow.style.display = 'flex'; document.getElementById('pointsBalanceText').textContent = 'Balance: ' + userPoints.toLocaleString() + ' pts'; }
+                    else { toggleRow.style.display = 'none'; if (payWithPoints) { payWithPoints = false; document.getElementById('payWithPointsToggle').checked = false; } }
+                } else { toggleRow.style.display = 'none'; guestNotice.style.display = 'block'; }
+                renderCartSummary(totals);
+            }
+
+            function renderCartSummary(totals) {
+                var summary = document.getElementById('cartSummary');
+                var btn = document.getElementById('placeOrderBtn');
+                if (payWithPoints) {
+                    summary.innerHTML = '<div class="summary-row"><span>Points Cost</span><span style="color:#d4a843;font-weight:600;">' + totals.pointsPrice.toLocaleString() + ' pts</span></div><div class="summary-row"><span>Tax</span><span>$0.00</span></div><div class="summary-row total"><span>Total</span><span style="color:#d4a843;">' + totals.pointsPrice.toLocaleString() + ' pts</span></div>';
+                    btn.textContent = 'Redeem ' + totals.pointsPrice.toLocaleString() + ' Points';
+                } else {
+                    summary.innerHTML = '<div class="summary-row"><span>Subtotal</span><span>$' + totals.subtotal.toFixed(2) + '</span></div><div class="summary-row"><span>Tax (6%)</span><span>$' + totals.tax.toFixed(2) + '</span></div><div class="summary-row total"><span>Total</span><span>$' + totals.total.toFixed(2) + '</span></div>' + (isLoggedIn && !payWithPoints ? '<div class="summary-row earn"><span>Points Earned</span><span style="color:#16a34a;">+' + (totals.pointsEarned + totals.bonusPoints) + ' pts</span></div>' : '');
+                    btn.textContent = 'Place Order \u2014 $' + totals.total.toFixed(2);
+                }
+            }
+
+            function populatePickupTimes() {
+                var select = document.getElementById('pickupTimeSelect');
+                select.innerHTML = '';
+                var now = new Date();
+                var mins = now.getMinutes();
+                var rounded = Math.ceil(mins / 15) * 15 + 15;
+                var start = new Date(now);
+                start.setMinutes(rounded, 0, 0);
+                for (var i = 0; i < 12; i++) {
+                    var slot = new Date(start.getTime() + i * 15 * 60000);
+                    var h = slot.getHours(), m = slot.getMinutes(), ampm = h >= 12 ? 'PM' : 'AM';
+                    var dh = h % 12 || 12, dm = m < 10 ? '0' + m : m;
+                    var opt = document.createElement('option');
+                    opt.value = dh + ':' + dm + ' ' + ampm;
+                    opt.textContent = dh + ':' + dm + ' ' + ampm + (i === 0 ? ' (earliest)' : '');
+                    select.appendChild(opt);
+                }
+            }
+
+            // ========================================
+            // CART EVENT LISTENERS
+            // ========================================
+            document.getElementById('cartBtn').addEventListener('click', openCart);
+            document.getElementById('cartClose').addEventListener('click', closeCart);
+            document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+            // Add to cart via delegation on menu grid
+            document.getElementById('menuGrid').addEventListener('click', function(e) {
+                var btn = e.target.closest('.add-to-cart-btn');
+                if (btn) { e.stopPropagation(); addToCart(btn.dataset.itemId); }
+            });
+
+            // Qty buttons in cart via delegation
+            document.getElementById('cartBody').addEventListener('click', function(e) {
+                var btn = e.target.closest('.qty-btn');
+                if (!btn) return;
+                var id = btn.dataset.id, action = btn.dataset.action;
+                if (action === 'increase') updateQuantity(id, 1);
+                else if (action === 'decrease') updateQuantity(id, -1);
+            });
+
+            // Points toggle
+            document.getElementById('payWithPointsToggle').addEventListener('change', function() {
+                payWithPoints = this.checked;
+                updateCartUI();
+            });
+
+            // Place order
+            document.getElementById('placeOrderBtn').addEventListener('click', async function() {
+                if (cart.length === 0) return;
+                var btn = this;
+                btn.disabled = true;
+                btn.textContent = 'Placing order...';
+                var totals = getCartTotals();
+                var pickupTime = document.getElementById('pickupTimeSelect').value;
+                var payload = {
+                    items: cart.map(function(c) { return { id: c.id, name: c.name, price: c.price, quantity: c.quantity }; }),
+                    pickupTime: pickupTime,
+                    subtotal: payWithPoints ? 0 : totals.subtotal,
+                    tax: payWithPoints ? 0 : totals.tax,
+                    total: payWithPoints ? 0 : totals.total,
+                    pointsEarned: payWithPoints ? 0 : totals.pointsEarned + totals.bonusPoints,
+                    paymentMethod: payWithPoints ? 'points' : 'money',
+                    pointsRedeemed: payWithPoints ? totals.pointsPrice : 0
+                };
+                try {
+                    var headers = { 'Content-Type': 'application/json' };
+                    var token = localStorage.getItem('userToken');
+                    if (token) headers['Authorization'] = 'Bearer ' + token;
+                    var res = await fetch('/.netlify/functions/create-order', { method: 'POST', headers: headers, body: JSON.stringify(payload) });
+                    if (!res.ok) { var errData = await res.json(); throw new Error(errData.error || 'Order failed'); }
+                    var data = await res.json();
+                    cart = []; payWithPoints = false;
+                    var toggle = document.getElementById('payWithPointsToggle');
+                    if (toggle) toggle.checked = false;
+                    updateCartUI();
+                    if (isLoggedIn && data.newPointsTotal != null) userPoints = data.newPointsTotal;
+                    closeCart();
+                    showToast('Order placed! Pickup at ' + pickupTime);
+                } catch (err) { console.error('Order error:', err); showToast('Could not place order. Please try again.'); }
+                finally { btn.disabled = false; updateCartUI(); }
+            });
+
+            // ========================================
             // PERSONALIZED SECTIONS
             // ========================================
             async function loadPersonalized() {
@@ -1640,6 +1929,8 @@
                             var userData = await userRes.json();
                             isLoggedIn = true;
                             userName = userData.name || '';
+                            userPoints = userData.points || 0;
+                            userTier = userData.tierLevel || 'Bronze';
                             updateAuthUI(userData);
                         }
 
@@ -1659,6 +1950,7 @@
                 }
 
                 renderMenu();
+                updateCartUI();
 
                 // Load personalized sections for logged-in users
                 if (isLoggedIn) {
