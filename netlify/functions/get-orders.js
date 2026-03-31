@@ -51,10 +51,10 @@ exports.handler = async (event) => {
                 orderDate: record.get('OrderDate'),
                 pickupTime: record.get('PickupTime'),
                 items: record.get('ItemsList'),
-                subtotal: record.get('Subtotal'),
-                tax: record.get('Tax'),
-                total: record.get('Total'),
-                pointsEarned: record.get('PointsEarned'),
+                subtotal: parseFloat(record.get('Subtotal')) || 0,
+                tax: parseFloat(record.get('Tax')) || 0,
+                total: parseFloat(record.get('Total')) || 0,
+                pointsEarned: parseInt(record.get('PointsEarned')) || 0,
                 status: record.get('Status')
             };
 
