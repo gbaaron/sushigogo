@@ -152,7 +152,11 @@ exports.handler = async (event) => {
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ error: 'Failed to create order' })
+            body: JSON.stringify({
+                error: 'Failed to create order',
+                detail: error.message || String(error),
+                statusCode: error.statusCode || null
+            })
         };
     }
 };
