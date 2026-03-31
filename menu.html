@@ -862,6 +862,148 @@
                 display: none !important;
             }
         }
+
+        /* ─── Personalized Menu Section ─── */
+        .menu-personalized {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .menu-personal-section {
+            margin-bottom: 24px;
+        }
+
+        .menu-personal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-personal-heading {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--color-black);
+            margin-bottom: 14px;
+        }
+
+        .menu-personal-scroll {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .menu-personal-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .menu-personal-scroll::-webkit-scrollbar-track {
+            background: var(--color-cream);
+        }
+
+        .menu-personal-scroll::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+
+        .mp-card {
+            flex: 0 0 200px;
+            border: 1px solid var(--color-border);
+            background: var(--color-warm-white);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.15s;
+            scroll-snap-align: start;
+        }
+
+        .mp-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .mp-card-img {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            background: linear-gradient(135deg, #FFE0D6 0%, #FFD0C0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--color-text-light);
+            letter-spacing: 0.5px;
+        }
+
+        .mp-card-body {
+            padding: 12px 14px;
+        }
+
+        .mp-card-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-black);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mp-card-price {
+            font-size: 13px;
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .mp-card-cat {
+            font-size: 11px;
+            color: var(--color-text-light);
+            font-weight: 300;
+        }
+
+        /* Order again variant */
+        .mp-card.oa-variant {
+            flex: 0 0 260px;
+        }
+
+        .mp-card.oa-variant .mp-card-img {
+            display: none;
+        }
+
+        .mp-card.oa-variant .mp-card-body {
+            padding: 16px;
+        }
+
+        .mp-card.oa-variant .oa-items {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--color-text);
+            line-height: 1.4;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .mp-card.oa-variant .oa-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mp-card.oa-variant .oa-total {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .mp-card.oa-variant .oa-date {
+            font-size: 11px;
+            color: var(--color-text-light);
+            font-weight: 300;
+        }
     </style>
 </head>
 <body>
@@ -918,6 +1060,26 @@
 
     <!-- Menu Content -->
     <main class="menu-section">
+
+        <!-- Personalized Section (logged-in users only) -->
+        <div class="menu-personalized" id="menuPersonalized" style="display:none;">
+
+            <div class="menu-personal-section" id="menuRecsSection" style="display:none;">
+                <h3 class="menu-personal-heading">Recommended for You</h3>
+                <div class="menu-personal-scroll" id="menuRecsScroll">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <div class="menu-personal-section" id="menuOrderAgainSection" style="display:none;">
+                <h3 class="menu-personal-heading">Order Again</h3>
+                <div class="menu-personal-scroll" id="menuOrderAgainScroll">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+        </div>
+
         <div class="menu-grid" id="menuGrid">
             <div class="menu-loading" id="menuLoading">
                 <div class="spinner"></div>
@@ -1322,6 +1484,111 @@
             }
 
             // ========================================
+            // PERSONALIZED SECTIONS
+            // ========================================
+            async function loadPersonalized() {
+                var container = document.getElementById('menuPersonalized');
+                var recsSection = document.getElementById('menuRecsSection');
+                var recsScroll = document.getElementById('menuRecsScroll');
+                var orderAgainSection = document.getElementById('menuOrderAgainSection');
+                var orderAgainScroll = document.getElementById('menuOrderAgainScroll');
+
+                try {
+                    var [recsRes, ordersRes] = await Promise.all([
+                        fetch('/.netlify/functions/get-recommendations', {
+                            headers: { 'Authorization': 'Bearer ' + userToken }
+                        }),
+                        fetch('/.netlify/functions/get-orders', {
+                            headers: { 'Authorization': 'Bearer ' + userToken }
+                        })
+                    ]);
+
+                    var hasContent = false;
+
+                    // --- Recommendations ---
+                    if (recsRes.ok) {
+                        var recsData = await recsRes.json();
+                        var recs = (recsData.recommendations || []).slice(0, 6);
+                        if (recs.length > 0) {
+                            var recsHtml = '';
+                            recs.forEach(function (item) {
+                                var priceStr = item.price != null ? '$' + parseFloat(item.price).toFixed(2) : '';
+                                var catStr = item.category ? escapeHtml(item.category) : '';
+                                recsHtml += '<div class="mp-card" data-rec-id="' + (item.id || '') + '">' +
+                                    '<div class="mp-card-img">' + escapeHtml(item.name || 'ITEM') + '</div>' +
+                                    '<div class="mp-card-body">' +
+                                        '<div class="mp-card-name">' + escapeHtml(item.name || 'Unnamed') + '</div>' +
+                                        '<div class="mp-card-price">' + priceStr + '</div>' +
+                                        (catStr ? '<div class="mp-card-cat">' + catStr + '</div>' : '') +
+                                    '</div>' +
+                                '</div>';
+                            });
+                            recsScroll.innerHTML = recsHtml;
+                            recsSection.style.display = '';
+                            hasContent = true;
+
+                            // Click handler: scroll to item in menu grid
+                            recsScroll.addEventListener('click', function (e) {
+                                var card = e.target.closest('.mp-card');
+                                if (!card) return;
+                                var recId = card.dataset.recId;
+                                if (recId) {
+                                    var gridCard = document.querySelector('.menu-card[data-id="' + recId + '"]');
+                                    if (gridCard) {
+                                        gridCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        gridCard.style.outline = '2px solid var(--color-primary)';
+                                        setTimeout(function () { gridCard.style.outline = ''; }, 2000);
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                    // --- Order Again ---
+                    if (ordersRes.ok) {
+                        var ordersData = await ordersRes.json();
+                        var orders = (ordersData.orders || [])
+                            .filter(function (o) { return o.status === 'completed'; })
+                            .slice(0, 3);
+                        if (orders.length > 0) {
+                            var ordersHtml = '';
+                            orders.forEach(function (order) {
+                                var itemNames = (order.items || []).map(function (i) {
+                                    return escapeHtml(i.name || 'Item');
+                                }).join(', ');
+                                var totalStr = order.total != null ? '$' + parseFloat(order.total).toFixed(2) : '';
+                                var dateStr = '';
+                                if (order.createdAt) {
+                                    var d = new Date(order.createdAt);
+                                    dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                                }
+                                ordersHtml += '<div class="mp-card oa-variant">' +
+                                    '<div class="mp-card-img"></div>' +
+                                    '<div class="mp-card-body">' +
+                                        '<div class="oa-items">' + itemNames + '</div>' +
+                                        '<div class="oa-meta">' +
+                                            '<span class="oa-total">' + totalStr + '</span>' +
+                                            '<span class="oa-date">' + escapeHtml(dateStr) + '</span>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>';
+                            });
+                            orderAgainScroll.innerHTML = ordersHtml;
+                            orderAgainSection.style.display = '';
+                            hasContent = true;
+                        }
+                    }
+
+                    if (hasContent) {
+                        container.style.display = '';
+                    }
+                } catch (err) {
+                    console.error('Personalized section error:', err);
+                    // Graceful degradation — personalized section stays hidden
+                }
+            }
+
+            // ========================================
             // AUTH STATE
             // ========================================
             function updateAuthUI(user) {
@@ -1389,6 +1656,11 @@
                 }
 
                 renderMenu();
+
+                // Load personalized sections for logged-in users
+                if (isLoggedIn) {
+                    loadPersonalized();
+                }
             }
 
             init();

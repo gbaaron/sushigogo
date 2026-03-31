@@ -882,6 +882,152 @@
       color: var(--color-text-light);
     }
 
+    /* ===================== PERSONALIZED SECTION ===================== */
+    .personalized-section {
+      background: var(--color-cream);
+      padding: 50px 40px;
+    }
+
+    .welcome-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .welcome-heading {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .welcome-sub {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text-light);
+      font-weight: 300;
+    }
+
+    .welcome-sub a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .personalized-heading {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--color-black);
+      margin-bottom: 20px;
+      margin-top: 12px;
+    }
+
+    .order-again-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .order-again-card {
+      border: 1px solid var(--color-border);
+      background: var(--color-warm-white);
+      padding: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .order-again-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+    }
+
+    .order-again-card .oa-items {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-black);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .order-again-card .oa-meta {
+      font-size: 12px;
+      color: var(--color-text-light);
+      font-weight: 300;
+    }
+
+    .recs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .rec-card {
+      border: 1px solid var(--color-border);
+      background: var(--color-warm-white);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .rec-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+    }
+
+    .rec-card-img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      background: linear-gradient(135deg, #FFE0D6 0%, #FFD0C0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--color-text-light);
+    }
+
+    .rec-card-body {
+      padding: 14px 16px;
+    }
+
+    .rec-card-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-black);
+      margin-bottom: 4px;
+    }
+
+    .rec-card-price {
+      font-size: 13px;
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .rec-card-cat {
+      font-size: 11px;
+      color: var(--color-text-light);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    /* Responsive for personalized */
+    @media (max-width: 768px) {
+      .personalized-section { padding: 36px 20px; }
+      .welcome-heading { font-size: 22px; }
+      .order-again-grid { grid-template-columns: 1fr; }
+      .recs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .recs-grid { grid-template-columns: 1fr; }
+    }
+
     /* ===================== ANIMATIONS ===================== */
     .fade-in {
       opacity: 0;
@@ -1090,6 +1236,33 @@
     <a href="rewards.html">Join Rewards</a>
     <a href="#contact">Contact</a>
   </div>
+
+  <!-- Personalized Section (logged-in users only) -->
+  <section class="personalized-section" id="personalizedSection" style="display:none;">
+    <div class="container">
+      <div class="welcome-bar">
+        <div class="welcome-text">
+          <h2 class="welcome-heading">Welcome back, <span id="homeUserName">...</span></h2>
+          <p class="welcome-sub">You have <strong id="homeUserPoints">0</strong> reward points &bull; <a href="rewards.html">View Rewards</a></p>
+        </div>
+        <a href="menu.html" class="btn-primary">Order Now</a>
+      </div>
+
+      <div id="homeOrderAgainSection" style="display:none;">
+        <h3 class="personalized-heading">Order Again</h3>
+        <div class="order-again-grid" id="homeOrderAgainGrid">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <div id="homeRecsSection" style="display:none;">
+        <h3 class="personalized-heading">Recommended for You</h3>
+        <div class="recs-grid" id="homeRecsGrid">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ==================== ABOUT ==================== -->
   <section class="section section-lg about-section" id="about">
@@ -1311,6 +1484,83 @@
         accountLinks.forEach(function(link) {
           link.style.display = 'inline-block';
         });
+      }
+
+      // Personalized section for logged-in users
+      if (userToken) {
+        (async function() {
+          try {
+            var section = document.getElementById('personalizedSection');
+
+            // Fetch user data
+            var userRes = await fetch('/.netlify/functions/get-user', {
+              headers: { 'Authorization': 'Bearer ' + userToken }
+            });
+            if (!userRes.ok) return;
+            var user = await userRes.json();
+
+            document.getElementById('homeUserName').textContent = user.name || 'Friend';
+            document.getElementById('homeUserPoints').textContent = user.points || 0;
+            section.style.display = '';
+
+            // Fetch orders
+            var ordersRes = await fetch('/.netlify/functions/get-orders', {
+              headers: { 'Authorization': 'Bearer ' + userToken }
+            });
+            if (ordersRes.ok) {
+              var ordersData = await ordersRes.json();
+              var pastOrders = (ordersData.past || []).slice(0, 3);
+              if (pastOrders.length > 0) {
+                var oaGrid = document.getElementById('homeOrderAgainGrid');
+                var oaHtml = '';
+                pastOrders.forEach(function(order) {
+                  var items = order.items || '--';
+                  if (items.length > 60) items = items.substring(0, 60) + '...';
+                  var total = '$' + (order.total || 0).toFixed(2);
+                  oaHtml += '<a href="menu.html" class="order-again-card">'
+                    + '<div class="oa-items">' + escapeHtml(items) + '</div>'
+                    + '<div class="oa-meta">' + total + '</div>'
+                    + '</a>';
+                });
+                oaGrid.innerHTML = oaHtml;
+                document.getElementById('homeOrderAgainSection').style.display = '';
+              }
+            }
+
+            // Fetch recommendations
+            var recsRes = await fetch('/.netlify/functions/get-recommendations', {
+              headers: { 'Authorization': 'Bearer ' + userToken }
+            });
+            if (recsRes.ok) {
+              var recsData = await recsRes.json();
+              var recs = (recsData.recommendations || []).slice(0, 4);
+              if (recs.length > 0) {
+                var recsGrid = document.getElementById('homeRecsGrid');
+                var recsHtml = '';
+                recs.forEach(function(item) {
+                  recsHtml += '<a href="menu.html" class="rec-card">'
+                    + '<div class="rec-card-img">' + escapeHtml(item.name) + '</div>'
+                    + '<div class="rec-card-body">'
+                    + '<div class="rec-card-name">' + escapeHtml(item.name) + '</div>'
+                    + '<div class="rec-card-price">$' + (item.price || 0).toFixed(2) + '</div>'
+                    + '<div class="rec-card-cat">' + escapeHtml(item.category || '') + '</div>'
+                    + '</div></a>';
+                });
+                recsGrid.innerHTML = recsHtml;
+                document.getElementById('homeRecsSection').style.display = '';
+              }
+            }
+          } catch (e) {
+            console.log('Personalized section load error:', e);
+          }
+        })();
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        var div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
       }
 
       // Mobile menu toggle
