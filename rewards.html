@@ -459,17 +459,28 @@
     }
 
     .tab-btn.admin-tab {
-      color: var(--color-primary);
-      opacity: 0.7;
+      color: #fff;
+      background: var(--color-primary);
+      border-radius: 2px;
+      margin: 6px 2px;
+      padding: 12px 20px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      transition: background 0.2s, transform 0.15s;
     }
 
     .tab-btn.admin-tab:hover {
-      opacity: 1;
+      background: #b52728;
+      transform: translateY(-1px);
     }
 
     .tab-btn.admin-tab.active {
-      opacity: 1;
-      color: var(--color-primary);
+      background: var(--color-black);
+      color: #fff;
+    }
+
+    .tab-btn.admin-tab.active::after {
+      display: none;
     }
 
     .admin-content-banner {
@@ -2405,8 +2416,7 @@
               <h3 style="font-family:var(--font-display); font-size:18px; font-weight:400; color:var(--color-black); margin-bottom:16px;">Quick Actions</h3>
               <div style="display:flex; flex-direction:column; gap:10px;">
                 <button class="admin-btn-primary" id="adminGoToMenu" style="width:100%; justify-content:center;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Add New Menu Item
+                  Manage Menu
                 </button>
                 <button class="admin-btn-primary" id="adminGoToOrders" style="width:100%; justify-content:center; background:var(--color-black);">
                   View All Orders
@@ -3303,11 +3313,6 @@
           if (menuTab) { menuTab.classList.add('active'); }
           document.getElementById('tab-menu-mgmt').classList.add('active');
           document.querySelector('.tabs-nav').scrollIntoView({ block: 'start' });
-          // Trigger add modal
-          setTimeout(function() {
-            var addBtn = document.getElementById('adminAddItemBtn');
-            if (addBtn) addBtn.click();
-          }, 200);
         });
       }
 
