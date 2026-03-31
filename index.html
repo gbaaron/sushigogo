@@ -1282,11 +1282,11 @@
           <a href="menu.html" class="btn-primary">See Our Menu</a>
         </div>
         <div class="about-image-col fade-in">
-          <div class="about-image-placeholder">Sushi Photo</div>
+          <div class="about-image-placeholder" data-site-img="hero-sushi">Sushi Photo</div>
         </div>
       </div>
       <div class="about-storefront fade-in">
-        <div class="about-storefront-placeholder">Kiosk Photo</div>
+        <div class="about-storefront-placeholder" data-site-img="hero-kiosk">Kiosk Photo</div>
       </div>
     </div>
   </section>
@@ -1297,21 +1297,21 @@
       <h2 class="section-heading section-heading-center section-heading-large fade-in">Our Rolls</h2>
       <div class="menu-grid">
         <div class="menu-card fade-in">
-          <div class="menu-card-image">Signature Rolls Photo</div>
+          <div class="menu-card-image" data-site-img="category-signature">Signature Rolls Photo</div>
           <div class="menu-card-body">
             <h3 class="menu-card-title">Signature Rolls</h3>
             <p class="menu-card-desc">Our chef's creative originals — bold flavors, beautiful presentation, and packed with premium ingredients. These are the rolls you come back for.</p>
           </div>
         </div>
         <div class="menu-card fade-in">
-          <div class="menu-card-image">Classic Rolls Photo</div>
+          <div class="menu-card-image" data-site-img="category-classic">Classic Rolls Photo</div>
           <div class="menu-card-body">
             <h3 class="menu-card-title">Classic Rolls</h3>
             <p class="menu-card-desc">Time-tested favorites made fresh daily. From California to Spicy Salmon, these are the sushi staples done right.</p>
           </div>
         </div>
         <div class="menu-card fade-in">
-          <div class="menu-card-image">Bowls Photo</div>
+          <div class="menu-card-image" data-site-img="category-bowls">Bowls Photo</div>
           <div class="menu-card-body">
             <h3 class="menu-card-title">Bowls</h3>
             <p class="menu-card-desc">Hearty poke bowls and rice bowls loaded with fresh fish, crispy toppings, and house-made sauces. A full meal in a bowl.</p>
@@ -1338,7 +1338,7 @@
           <a href="menu.html" class="btn-primary">Order Now</a>
         </div>
         <div class="order-image-wrapper fade-in">
-          <div class="order-image-placeholder">Order Pickup Photo</div>
+          <div class="order-image-placeholder" data-site-img="order-pickup">Order Pickup Photo</div>
           <div class="order-image-caption">Ready When You Are</div>
         </div>
       </div>
@@ -1351,11 +1351,11 @@
       <h2 class="section-heading section-heading-center fade-in">Fan Favorites</h2>
       <div class="featured-grid">
         <div class="featured-card fade-in">
-          <div class="featured-card-image">Dragon Roll Photo</div>
+          <div class="featured-card-image" data-site-img="featured-dragon">Dragon Roll Photo</div>
           <div class="featured-card-caption">Dragon Roll</div>
         </div>
         <div class="featured-card fade-in">
-          <div class="featured-card-image">Salmon Poke Bowl Photo</div>
+          <div class="featured-card-image" data-site-img="featured-poke">Salmon Poke Bowl Photo</div>
           <div class="featured-card-caption">Salmon Poke Bowl</div>
         </div>
       </div>
@@ -1368,21 +1368,21 @@
       <h2 class="section-heading section-heading-center section-heading-large fade-in">Why GoGo?</h2>
       <div class="perks-grid">
         <div class="perk-card fade-in">
-          <div class="perk-card-image">Rewards Icon</div>
+          <div class="perk-card-image" data-site-img="perk-rewards">Rewards Icon</div>
           <div class="perk-card-body">
             <h3 class="perk-card-title">GoGo Rewards</h3>
             <p class="perk-card-desc">Earn points on every order and level up to unlock free rolls, birthday treats, and exclusive perks. Joining is free.</p>
           </div>
         </div>
         <div class="perk-card fade-in">
-          <div class="perk-card-image">Birthday Icon</div>
+          <div class="perk-card-image" data-site-img="perk-birthday">Birthday Icon</div>
           <div class="perk-card-body">
             <h3 class="perk-card-title">Birthday Roll</h3>
             <p class="perk-card-desc">Celebrate your special day with a complimentary roll on us. Sign up for rewards and add your birthday to claim it.</p>
           </div>
         </div>
         <div class="perk-card fade-in">
-          <div class="perk-card-image">Fresh Icon</div>
+          <div class="perk-card-image" data-site-img="perk-fresh">Fresh Icon</div>
           <div class="perk-card-body">
             <h3 class="perk-card-title">Always Fresh</h3>
             <p class="perk-card-desc">Every roll is made to order with fresh ingredients. No pre-made trays sitting under heat lamps — just real, fresh sushi.</p>
@@ -1629,6 +1629,32 @@
           el.classList.add('visible');
         });
       }
+
+      // Load site images from Airtable
+      (async function() {
+        try {
+          var res = await fetch('/.netlify/functions/get-site-images');
+          if (!res.ok) return;
+          var data = await res.json();
+          var images = data.images || {};
+
+          document.querySelectorAll('[data-site-img]').forEach(function(el) {
+            var slot = el.getAttribute('data-site-img');
+            var imgData = images[slot];
+            if (imgData && imgData.url) {
+              var img = document.createElement('img');
+              img.src = imgData.url;
+              img.alt = imgData.alt || '';
+              img.loading = 'lazy';
+              img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+              el.textContent = '';
+              el.appendChild(img);
+            }
+          });
+        } catch (e) {
+          // Silently fail — placeholders remain
+        }
+      })();
     })();
   </script>
 
