@@ -1359,6 +1359,654 @@
         gap: 8px;
       }
     }
+
+    /* ========== ADMIN SECTION STYLES ========== */
+
+    /* Admin Stats Bar */
+    .admin-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .admin-stat-card {
+      background: var(--color-warm-white);
+      padding: 20px 24px;
+      border: 1px solid var(--color-border);
+    }
+
+    .admin-stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text-light);
+      margin-bottom: 6px;
+    }
+
+    .admin-stat-value {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--color-black);
+    }
+
+    /* Admin Toolbar */
+    .admin-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .admin-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .admin-filter-select {
+      font-family: var(--font-body);
+      font-size: 13px;
+      padding: 9px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-warm-white);
+      color: var(--color-text);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .admin-filter-select:focus {
+      border-color: var(--color-primary);
+    }
+
+    /* Admin Buttons */
+    .admin-btn-primary {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      background: var(--color-primary);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-btn-primary:hover {
+      background: #c0292a;
+    }
+
+    .admin-btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .admin-btn-primary svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .admin-btn-icon {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid var(--color-border);
+      background: var(--color-warm-white);
+      color: var(--color-text);
+      padding: 6px 12px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .admin-btn-icon:hover {
+      background: var(--color-cream);
+      border-color: var(--color-text-light);
+    }
+
+    .admin-btn-icon.danger {
+      color: var(--color-error);
+    }
+
+    .admin-btn-icon.danger:hover {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .admin-btn-secondary {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text);
+      background: var(--color-warm-white);
+      border: 1px solid var(--color-border);
+      padding: 10px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .admin-btn-secondary:hover {
+      background: var(--color-cream);
+    }
+
+    .admin-btn-danger {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      background: var(--color-error);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .admin-btn-danger:hover {
+      background: #b91c1c;
+    }
+
+    /* Admin Data Table */
+    .admin-data-table {
+      width: 100%;
+      background: var(--color-warm-white);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+
+    .admin-data-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .admin-data-table thead th {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text-light);
+      background: var(--color-cream);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+      white-space: nowrap;
+    }
+
+    .admin-data-table tbody td {
+      padding: 12px 16px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--color-cream);
+      vertical-align: middle;
+      font-weight: 300;
+    }
+
+    .admin-data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .admin-data-table tbody tr:hover {
+      background: var(--color-cream);
+    }
+
+    .admin-data-table tbody tr.unavailable {
+      opacity: 0.55;
+    }
+
+    .admin-item-thumb {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      background: var(--color-cream);
+      display: block;
+      border: 1px solid var(--color-border);
+    }
+
+    .admin-item-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-item-name {
+      font-weight: 500;
+      color: var(--color-black);
+    }
+
+    .admin-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+    }
+
+    .admin-badge-unavailable {
+      background: #fef2f2;
+      color: var(--color-error);
+    }
+
+    .admin-badge-category {
+      background: var(--color-cream);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .admin-rating-display {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #d4a843;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .admin-rating-display svg {
+      width: 14px;
+      height: 14px;
+      fill: #d4a843;
+    }
+
+    .admin-rating-count {
+      font-size: 12px;
+      color: var(--color-text-light);
+      font-weight: 300;
+    }
+
+    /* Admin Toggle Switch */
+    .admin-toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .admin-toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .admin-toggle-track {
+      position: absolute;
+      inset: 0;
+      background: var(--color-border);
+      border-radius: 12px;
+      transition: background 0.25s;
+    }
+
+    .admin-toggle-switch input:checked + .admin-toggle-track {
+      background: var(--color-success);
+    }
+
+    .admin-toggle-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    .admin-toggle-switch input:checked ~ .admin-toggle-knob {
+      transform: translateX(20px);
+    }
+
+    .admin-actions-cell {
+      display: flex;
+      gap: 6px;
+    }
+
+    /* Admin Status Filters */
+    .admin-status-filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .admin-status-filter-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-text);
+      background: var(--color-warm-white);
+      border: 1px solid var(--color-border);
+      padding: 7px 16px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .admin-status-filter-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .admin-status-filter-btn.active {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+
+    /* Admin Order Status Badges */
+    .admin-order-status {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+    }
+
+    .admin-status-pending { background: #fef3c7; color: #92400e; }
+    .admin-status-preparing { background: #dbeafe; color: #1e40af; }
+    .admin-status-ready { background: #d1fae5; color: #065f46; }
+    .admin-status-completed { background: var(--color-cream); color: var(--color-text); }
+    .admin-status-cancelled { background: #fef2f2; color: var(--color-error); }
+
+    .admin-status-select {
+      font-family: var(--font-body);
+      font-size: 12px;
+      padding: 6px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-warm-white);
+      color: var(--color-text);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .admin-status-select:focus {
+      border-color: var(--color-primary);
+    }
+
+    .admin-auto-refresh-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--color-text-light);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .admin-order-items-list {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text);
+      max-width: 260px;
+      font-weight: 300;
+    }
+
+    .admin-order-date {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    .admin-order-date-sub {
+      font-size: 12px;
+      color: var(--color-text-light);
+      font-weight: 300;
+    }
+
+    .admin-empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--color-text-light);
+    }
+
+    .admin-empty-state p {
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    /* Admin Modal */
+    .admin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .admin-modal-backdrop.visible {
+      display: flex;
+    }
+
+    .admin-modal {
+      background: var(--color-warm-white);
+      border: 1px solid var(--color-border);
+      width: 100%;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .admin-modal-header {
+      padding: 24px 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-modal-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--color-black);
+    }
+
+    .admin-modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-light);
+      padding: 4px;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .admin-modal-close:hover {
+      color: var(--color-black);
+    }
+
+    .admin-modal-close svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .admin-modal-body {
+      padding: 24px 28px 28px;
+    }
+
+    .admin-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .admin-modal .admin-form-group {
+      margin-bottom: 20px;
+    }
+
+    .admin-modal .admin-form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+
+    .admin-modal .admin-form-input,
+    .admin-modal .admin-form-select,
+    .admin-modal .admin-form-textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text);
+      padding: 10px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      font-weight: 300;
+    }
+
+    .admin-modal .admin-form-input:focus,
+    .admin-modal .admin-form-select:focus,
+    .admin-modal .admin-form-textarea:focus {
+      border-color: var(--color-primary);
+    }
+
+    .admin-modal .admin-form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .admin-image-preview {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+      margin-top: 8px;
+      display: none;
+    }
+
+    .admin-image-preview.visible {
+      display: block;
+    }
+
+    .admin-modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      padding-top: 8px;
+    }
+
+    /* Admin Delete Confirm Modal */
+    .admin-confirm-modal .admin-modal {
+      max-width: 400px;
+    }
+
+    .admin-confirm-modal .admin-modal-body p {
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    /* Admin Toast Notifications */
+    .admin-toast-container {
+      position: fixed;
+      top: 88px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .admin-toast {
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #fff;
+      border: 1px solid transparent;
+      animation: adminToastIn 0.3s ease forwards;
+      min-width: 280px;
+      max-width: 400px;
+    }
+
+    .admin-toast.success { background: var(--color-success); }
+    .admin-toast.error { background: var(--color-error); }
+
+    .admin-toast.leaving {
+      animation: adminToastOut 0.25s ease forwards;
+    }
+
+    @keyframes adminToastIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes adminToastOut {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(40px); }
+    }
+
+    /* Admin Section Responsive */
+    @media (max-width: 1024px) {
+      .admin-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .admin-data-table {
+        overflow-x: auto;
+      }
+
+      .admin-form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .admin-stats-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .admin-toolbar-left {
+        justify-content: space-between;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1373,7 +2021,7 @@
       </a>
 
       <div class="header-right">
-        <a href="dashboard.html" class="admin-link" id="adminLink" style="display:none;">Admin Dashboard</a>
+        <a href="#" class="admin-link" id="adminLink" style="display:none;">Admin Dashboard</a>
         <button class="user-icon-btn" id="userAvatar" aria-label="User account">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </button>
@@ -1457,6 +2105,8 @@
           <button class="tab-btn" data-tab="orders">Orders</button>
           <button class="tab-btn" data-tab="recommendations">Recommendations</button>
           <button class="tab-btn" data-tab="settings">Settings</button>
+          <button class="tab-btn admin-tab" data-tab="menu-mgmt" style="display:none;">Menu</button>
+          <button class="tab-btn admin-tab" data-tab="order-mgmt" style="display:none;">Orders (Admin)</button>
         </div>
 
         <!-- Overview Tab -->
@@ -1644,6 +2294,106 @@
           </div>
         </div>
 
+        <!-- Menu Management Tab (Admin Only) -->
+        <div class="tab-content" id="tab-menu-mgmt">
+          <div class="admin-stats-bar">
+            <div class="admin-stat-card">
+              <div class="admin-stat-label">Active Menu Items</div>
+              <div class="admin-stat-value" id="adminStatActiveItems">--</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-label">Pending Orders</div>
+              <div class="admin-stat-value" id="adminStatPendingOrders">--</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-label">Today's Orders</div>
+              <div class="admin-stat-value" id="adminStatTodayOrders">--</div>
+            </div>
+            <div class="admin-stat-card">
+              <div class="admin-stat-label">Today's Revenue</div>
+              <div class="admin-stat-value" id="adminStatTodayRevenue">--</div>
+            </div>
+          </div>
+
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <select class="admin-filter-select" id="adminCategoryFilter">
+                <option value="">All Categories</option>
+                <option value="Signature Rolls">Signature Rolls</option>
+                <option value="Classic Rolls">Classic Rolls</option>
+                <option value="Bowls">Bowls</option>
+                <option value="Sides">Sides</option>
+                <option value="Drinks">Drinks</option>
+              </select>
+            </div>
+            <button class="admin-btn-primary" id="adminAddItemBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add New Item
+            </button>
+          </div>
+
+          <div class="admin-data-table" id="adminMenuTableWrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Rating</th>
+                  <th>Available</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminMenuTableBody">
+                <tr><td colspan="6" class="admin-empty-state"><p>Loading menu items...</p></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Order Management Tab (Admin Only) -->
+        <div class="tab-content" id="tab-order-mgmt">
+          <div class="admin-toolbar">
+            <div class="admin-toolbar-left">
+              <div class="admin-status-filters" id="adminStatusFilters">
+                <button class="admin-status-filter-btn active" data-status="">All</button>
+                <button class="admin-status-filter-btn" data-status="Pending">Pending</button>
+                <button class="admin-status-filter-btn" data-status="Preparing">Preparing</button>
+                <button class="admin-status-filter-btn" data-status="Ready">Ready</button>
+                <button class="admin-status-filter-btn" data-status="Completed">Completed</button>
+                <button class="admin-status-filter-btn" data-status="Cancelled">Cancelled</button>
+              </div>
+            </div>
+            <div class="admin-auto-refresh-toggle">
+              <label class="admin-toggle-switch">
+                <input type="checkbox" id="adminAutoRefreshToggle">
+                <span class="admin-toggle-track"></span>
+                <span class="admin-toggle-knob"></span>
+              </label>
+              <span>Auto-refresh</span>
+            </div>
+          </div>
+
+          <div class="admin-data-table" id="adminOrdersTableWrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date / Time</th>
+                  <th>Customer</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Pickup</th>
+                  <th>Status</th>
+                  <th>Update</th>
+                </tr>
+              </thead>
+              <tbody id="adminOrdersTableBody">
+                <tr><td colspan="7" class="admin-empty-state"><p>Loading orders...</p></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </section>
     </div>
   </main>
@@ -1682,6 +2432,90 @@
     </div>
   </footer>
 
+  <!-- Admin Add/Edit Item Modal -->
+  <div class="admin-modal-backdrop" id="adminItemModal">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title" id="adminItemModalTitle">Add Menu Item</h2>
+        <button class="admin-modal-close" id="adminItemModalClose" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="admin-modal-body">
+        <form id="adminItemForm" novalidate>
+          <input type="hidden" id="adminEditItemId">
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="adminItemName">Name</label>
+            <input class="admin-form-input" type="text" id="adminItemName" placeholder="e.g. Dragon Roll" required>
+          </div>
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="adminItemCategory">Category</label>
+              <select class="admin-form-select" id="adminItemCategory" required>
+                <option value="">Select category</option>
+                <option value="Signature Rolls">Signature Rolls</option>
+                <option value="Classic Rolls">Classic Rolls</option>
+                <option value="Bowls">Bowls</option>
+                <option value="Sides">Sides</option>
+                <option value="Drinks">Drinks</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="adminItemPrice">Price ($)</label>
+              <input class="admin-form-input" type="number" id="adminItemPrice" step="0.01" min="0" placeholder="0.00" required>
+            </div>
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="adminItemDescription">Description</label>
+            <textarea class="admin-form-textarea" id="adminItemDescription" placeholder="A short description of the item..."></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="adminItemImageUrl">Image URL</label>
+            <input class="admin-form-input" type="url" id="adminItemImageUrl" placeholder="https://example.com/image.jpg">
+            <img class="admin-image-preview" id="adminImagePreview" alt="Preview" src="">
+          </div>
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="adminItemBonusPoints">Bonus Points</label>
+              <input class="admin-form-input" type="number" id="adminItemBonusPoints" min="0" value="0">
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="adminItemSortOrder">Sort Order</label>
+              <input class="admin-form-input" type="number" id="adminItemSortOrder" min="0" value="0">
+            </div>
+          </div>
+          <div class="admin-modal-actions">
+            <button type="button" class="admin-btn-secondary" id="adminItemCancelBtn">Cancel</button>
+            <button type="submit" class="admin-btn-primary" id="adminItemSaveBtn">Save Item</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Delete Confirmation Modal -->
+  <div class="admin-modal-backdrop admin-confirm-modal" id="adminDeleteModal">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Remove Item</h2>
+        <button class="admin-modal-close" id="adminDeleteModalClose" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="admin-modal-body">
+        <p>Are you sure? This will remove the item from the menu.</p>
+        <input type="hidden" id="adminDeleteItemId">
+        <div class="admin-modal-actions">
+          <button type="button" class="admin-btn-secondary" id="adminDeleteCancelBtn">Cancel</button>
+          <button type="button" class="admin-btn-danger" id="adminDeleteConfirmBtn">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Toast Container -->
+  <div class="admin-toast-container" id="adminToastContainer"></div>
+
   <script>
     (function () {
       'use strict';
@@ -1697,15 +2531,23 @@
       }
       if (isDemo) token = 'demo-token';
 
-      // Show admin link if applicable
+      // Show admin link and admin tabs if applicable
       if (localStorage.getItem('isAdmin') === 'true') {
         document.getElementById('adminLink').style.display = '';
+        document.querySelectorAll('.admin-tab').forEach(function(el) { el.style.display = ''; });
       }
 
       // ========== STATE ==========
       var userData = null;
       var ordersData = [];
       var recsData = [];
+
+      // Admin state
+      var adminMenuItems = [];
+      var adminOrders = [];
+      var adminAutoRefreshInterval = null;
+      var adminCurrentStatusFilter = '';
+      var adminDataLoaded = false;
 
       // ========== DOM REFS ==========
       var pageLoading = document.getElementById('pageLoading');
@@ -2077,6 +2919,12 @@
           tabContents.forEach(function (tc) { tc.classList.remove('active'); });
           btn.classList.add('active');
           document.getElementById('tab-' + target).classList.add('active');
+          // Lazy load admin data on first admin tab visit
+          if ((target === 'menu-mgmt' || target === 'order-mgmt') && !adminDataLoaded) {
+            adminDataLoaded = true;
+            adminFetchMenu();
+            adminFetchOrders();
+          }
         });
       });
 
@@ -2303,6 +3151,572 @@
             '</div>';
         }
       }
+
+      // ========== ADMIN LINK HANDLER ==========
+      document.getElementById('adminLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        tabBtns.forEach(function(b) { b.classList.remove('active'); });
+        tabContents.forEach(function(tc) { tc.classList.remove('active'); });
+        var menuTab = document.querySelector('[data-tab="menu-mgmt"]');
+        if (menuTab) {
+          menuTab.classList.add('active');
+          document.getElementById('tab-menu-mgmt').classList.add('active');
+          if (!adminDataLoaded) {
+            adminDataLoaded = true;
+            adminFetchMenu();
+            adminFetchOrders();
+          }
+          window.scrollTo(0, 0);
+        }
+      });
+
+      // ========== ADMIN FUNCTIONS ==========
+
+      // --- Admin DOM Refs ---
+      var adminCategoryFilter = document.getElementById('adminCategoryFilter');
+      var adminAddItemBtn = document.getElementById('adminAddItemBtn');
+      var adminMenuTableBody = document.getElementById('adminMenuTableBody');
+
+      var adminItemModal = document.getElementById('adminItemModal');
+      var adminItemModalTitle = document.getElementById('adminItemModalTitle');
+      var adminItemModalClose = document.getElementById('adminItemModalClose');
+      var adminItemForm = document.getElementById('adminItemForm');
+      var adminEditItemId = document.getElementById('adminEditItemId');
+      var adminItemName = document.getElementById('adminItemName');
+      var adminItemCategory = document.getElementById('adminItemCategory');
+      var adminItemPrice = document.getElementById('adminItemPrice');
+      var adminItemDescription = document.getElementById('adminItemDescription');
+      var adminItemImageUrl = document.getElementById('adminItemImageUrl');
+      var adminItemBonusPoints = document.getElementById('adminItemBonusPoints');
+      var adminItemSortOrder = document.getElementById('adminItemSortOrder');
+      var adminImagePreview = document.getElementById('adminImagePreview');
+      var adminItemCancelBtn = document.getElementById('adminItemCancelBtn');
+      var adminItemSaveBtn = document.getElementById('adminItemSaveBtn');
+
+      var adminDeleteModal = document.getElementById('adminDeleteModal');
+      var adminDeleteModalClose = document.getElementById('adminDeleteModalClose');
+      var adminDeleteItemId = document.getElementById('adminDeleteItemId');
+      var adminDeleteCancelBtn = document.getElementById('adminDeleteCancelBtn');
+      var adminDeleteConfirmBtn = document.getElementById('adminDeleteConfirmBtn');
+
+      var adminStatusFilters = document.getElementById('adminStatusFilters');
+      var adminOrdersTableBody = document.getElementById('adminOrdersTableBody');
+      var adminAutoRefreshToggle = document.getElementById('adminAutoRefreshToggle');
+
+      var adminToastContainer = document.getElementById('adminToastContainer');
+
+      // --- Admin Helpers ---
+      function adminEscapeHtml(str) {
+        if (!str) return '';
+        var div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function adminFormatDate(date) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+      }
+
+      function adminFormatTime(date) {
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+      }
+
+      // --- Admin Toast ---
+      function adminShowToast(message, type) {
+        var toast = document.createElement('div');
+        toast.className = 'admin-toast ' + (type || 'success');
+        toast.textContent = message;
+        adminToastContainer.appendChild(toast);
+
+        setTimeout(function () {
+          toast.classList.add('leaving');
+          setTimeout(function () {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 250);
+        }, 3000);
+      }
+
+      // --- Fetch Menu ---
+      async function adminFetchMenu() {
+        try {
+          var res = await fetch('/.netlify/functions/get-menu?all=true');
+          if (!res.ok) throw new Error('Failed to load menu');
+          var data = await res.json();
+          adminMenuItems = data.menuItems || [];
+          adminRenderMenu();
+          adminUpdateStats();
+        } catch (err) {
+          console.error('Admin fetch menu error:', err);
+          adminShowToast('Failed to load menu items.', 'error');
+        }
+      }
+
+      // --- Fetch Orders ---
+      async function adminFetchOrders() {
+        try {
+          var res = await fetch('/.netlify/functions/admin-get-orders', {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          if (!res.ok) throw new Error('Failed to load orders');
+          var data = await res.json();
+          adminOrders = data.orders || [];
+          adminRenderOrders();
+          adminUpdateStats();
+        } catch (err) {
+          console.error('Admin fetch orders error:', err);
+          adminShowToast('Failed to load orders.', 'error');
+        }
+      }
+
+      // --- Update Stats ---
+      function adminUpdateStats() {
+        var activeCount = adminMenuItems.filter(function (i) { return i.isAvailable; }).length;
+        document.getElementById('adminStatActiveItems').textContent = activeCount;
+
+        var pendingCount = adminOrders.filter(function (o) { return o.status === 'Pending'; }).length;
+        document.getElementById('adminStatPendingOrders').textContent = pendingCount;
+
+        var today = new Date().toISOString().slice(0, 10);
+        var todayOrders = adminOrders.filter(function (o) {
+          return o.orderDate && o.orderDate.slice(0, 10) === today;
+        });
+        document.getElementById('adminStatTodayOrders').textContent = todayOrders.length;
+
+        var todayRevenue = todayOrders
+          .filter(function (o) { return o.status === 'Completed'; })
+          .reduce(function (sum, o) { return sum + (o.total || 0); }, 0);
+        document.getElementById('adminStatTodayRevenue').textContent = '$' + todayRevenue.toFixed(2);
+      }
+
+      // --- Render Menu ---
+      function adminRenderMenu() {
+        var filterCat = adminCategoryFilter.value;
+        var filtered = adminMenuItems;
+        if (filterCat) {
+          filtered = adminMenuItems.filter(function (i) { return i.category === filterCat; });
+        }
+
+        if (filtered.length === 0) {
+          adminMenuTableBody.innerHTML = '<tr><td colspan="6" class="admin-empty-state"><p>No menu items found.</p></td></tr>';
+          return;
+        }
+
+        var html = '';
+        filtered.forEach(function (item) {
+          var rowClass = item.isAvailable ? '' : ' class="unavailable"';
+          var thumbSrc = item.imageUrl || '';
+          var thumbHtml = thumbSrc
+            ? '<img class="admin-item-thumb" src="' + adminEscapeHtml(thumbSrc) + '" alt="' + adminEscapeHtml(item.name) + '">'
+            : '<div class="admin-item-thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--color-text-light);">--</div>';
+          var unavailBadge = item.isAvailable ? '' : ' <span class="admin-badge admin-badge-unavailable">Unavailable</span>';
+
+          var ratingHtml = '';
+          if (item.ratingCount > 0) {
+            ratingHtml = '<div class="admin-rating-display">'
+              + '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>'
+              + item.avgRating.toFixed(1)
+              + ' <span class="admin-rating-count">(' + item.ratingCount + ')</span>'
+              + '</div>';
+          } else {
+            ratingHtml = '<span style="color:var(--color-text-light);font-size:13px;">No ratings</span>';
+          }
+
+          var checkedAttr = item.isAvailable ? ' checked' : '';
+
+          html += '<tr' + rowClass + '>'
+            + '<td><div class="admin-item-name-cell">' + thumbHtml + '<span class="admin-item-name">' + adminEscapeHtml(item.name) + unavailBadge + '</span></div></td>'
+            + '<td><span class="admin-badge admin-badge-category">' + adminEscapeHtml(item.category || '') + '</span></td>'
+            + '<td>$' + (item.price || 0).toFixed(2) + '</td>'
+            + '<td>' + ratingHtml + '</td>'
+            + '<td>'
+              + '<label class="admin-toggle-switch">'
+              + '<input type="checkbox"' + checkedAttr + ' data-item-id="' + item.id + '" class="admin-availability-toggle">'
+              + '<span class="admin-toggle-track"></span>'
+              + '<span class="admin-toggle-knob"></span>'
+              + '</label>'
+            + '</td>'
+            + '<td><div class="admin-actions-cell">'
+              + '<button class="admin-btn-icon admin-edit-item-btn" data-item-id="' + item.id + '">Edit</button>'
+              + '<button class="admin-btn-icon danger admin-delete-item-btn" data-item-id="' + item.id + '">Delete</button>'
+            + '</div></td>'
+            + '</tr>';
+        });
+
+        adminMenuTableBody.innerHTML = html;
+        adminBindMenuActions();
+      }
+
+      // --- Bind Menu Actions ---
+      function adminBindMenuActions() {
+        var toggles = document.querySelectorAll('.admin-availability-toggle');
+        toggles.forEach(function (toggle) {
+          toggle.addEventListener('change', function () {
+            var itemId = this.getAttribute('data-item-id');
+            var isAvailable = this.checked;
+            adminUpdateItemAvailability(itemId, isAvailable);
+          });
+        });
+
+        var editBtns = document.querySelectorAll('.admin-edit-item-btn');
+        editBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var itemId = this.getAttribute('data-item-id');
+            adminOpenEditModal(itemId);
+          });
+        });
+
+        var deleteBtns = document.querySelectorAll('.admin-delete-item-btn');
+        deleteBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var itemId = this.getAttribute('data-item-id');
+            adminOpenDeleteModal(itemId);
+          });
+        });
+      }
+
+      // --- Update Item Availability ---
+      async function adminUpdateItemAvailability(itemId, isAvailable) {
+        try {
+          var res = await fetch('/.netlify/functions/admin-update-item', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ itemId: itemId, fields: { isAvailable: isAvailable } })
+          });
+
+          if (!res.ok) throw new Error('Update failed');
+
+          var item = adminMenuItems.find(function (i) { return i.id === itemId; });
+          if (item) item.isAvailable = isAvailable;
+          adminUpdateStats();
+          adminRenderMenu();
+          adminShowToast(isAvailable ? 'Item is now available.' : 'Item marked as unavailable.', 'success');
+        } catch (err) {
+          console.error('Admin toggle availability error:', err);
+          adminShowToast('Failed to update availability.', 'error');
+          adminRenderMenu();
+        }
+      }
+
+      // --- Add / Edit Modal ---
+      function adminOpenAddModal() {
+        adminItemModalTitle.textContent = 'Add Menu Item';
+        adminItemSaveBtn.textContent = 'Add Item';
+        adminEditItemId.value = '';
+        adminItemForm.reset();
+        adminItemBonusPoints.value = 0;
+        adminItemSortOrder.value = 0;
+        adminImagePreview.classList.remove('visible');
+        adminItemModal.classList.add('visible');
+      }
+
+      function adminOpenEditModal(itemId) {
+        var item = adminMenuItems.find(function (i) { return i.id === itemId; });
+        if (!item) return;
+
+        adminItemModalTitle.textContent = 'Edit Menu Item';
+        adminItemSaveBtn.textContent = 'Save Changes';
+        adminEditItemId.value = item.id;
+        adminItemName.value = item.name || '';
+        adminItemCategory.value = item.category || '';
+        adminItemPrice.value = item.price || '';
+        adminItemDescription.value = item.description || '';
+        adminItemImageUrl.value = item.imageUrl || '';
+        adminItemBonusPoints.value = item.bonusPoints || 0;
+        adminItemSortOrder.value = item.sortOrder || 0;
+
+        if (item.imageUrl) {
+          adminImagePreview.src = item.imageUrl;
+          adminImagePreview.classList.add('visible');
+        } else {
+          adminImagePreview.classList.remove('visible');
+        }
+
+        adminItemModal.classList.add('visible');
+      }
+
+      function adminCloseItemModal() {
+        adminItemModal.classList.remove('visible');
+      }
+
+      // --- Delete Modal ---
+      function adminOpenDeleteModal(itemId) {
+        adminDeleteItemId.value = itemId;
+        adminDeleteModal.classList.add('visible');
+      }
+
+      function adminCloseDeleteModal() {
+        adminDeleteModal.classList.remove('visible');
+      }
+
+      // --- Save Item (Add/Edit) ---
+      async function adminSaveItem(e) {
+        e.preventDefault();
+
+        var name = adminItemName.value.trim();
+        var category = adminItemCategory.value;
+        var price = parseFloat(adminItemPrice.value);
+        var description = adminItemDescription.value.trim();
+        var imageUrl = adminItemImageUrl.value.trim();
+        var bonusPoints = parseInt(adminItemBonusPoints.value, 10) || 0;
+        var sortOrder = parseInt(adminItemSortOrder.value, 10) || 0;
+
+        if (!name || !category || isNaN(price) || price <= 0) {
+          adminShowToast('Please fill in name, category, and a valid price.', 'error');
+          return;
+        }
+
+        var isEditing = !!adminEditItemId.value;
+        adminItemSaveBtn.disabled = true;
+        adminItemSaveBtn.textContent = 'Saving...';
+
+        try {
+          var endpoint, body;
+
+          if (isEditing) {
+            endpoint = '/.netlify/functions/admin-update-item';
+            body = {
+              itemId: adminEditItemId.value,
+              fields: {
+                name: name,
+                category: category,
+                price: price,
+                description: description,
+                imageUrl: imageUrl,
+                bonusPoints: bonusPoints,
+                sortOrder: sortOrder
+              }
+            };
+          } else {
+            endpoint = '/.netlify/functions/admin-add-item';
+            body = {
+              name: name,
+              category: category,
+              price: price,
+              description: description,
+              imageUrl: imageUrl,
+              bonusPoints: bonusPoints,
+              sortOrder: sortOrder
+            };
+          }
+
+          var res = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(body)
+          });
+
+          if (!res.ok) {
+            var errData = await res.json().catch(function () { return {}; });
+            throw new Error(errData.error || 'Save failed');
+          }
+
+          adminShowToast(isEditing ? 'Menu item updated.' : 'Menu item added.', 'success');
+          adminCloseItemModal();
+          await adminFetchMenu();
+          adminUpdateStats();
+
+        } catch (err) {
+          console.error('Admin save item error:', err);
+          adminShowToast(err.message || 'Failed to save item.', 'error');
+        } finally {
+          adminItemSaveBtn.disabled = false;
+          adminItemSaveBtn.textContent = adminEditItemId.value ? 'Save Changes' : 'Add Item';
+        }
+      }
+
+      // --- Delete Item ---
+      async function adminDeleteItem() {
+        var itemId = adminDeleteItemId.value;
+        if (!itemId) return;
+
+        adminDeleteConfirmBtn.disabled = true;
+        adminDeleteConfirmBtn.textContent = 'Removing...';
+
+        try {
+          var res = await fetch('/.netlify/functions/admin-delete-item', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ itemId: itemId })
+          });
+
+          if (!res.ok) throw new Error('Delete failed');
+
+          adminShowToast('Item removed from menu.', 'success');
+          adminCloseDeleteModal();
+          await adminFetchMenu();
+          adminUpdateStats();
+
+        } catch (err) {
+          console.error('Admin delete item error:', err);
+          adminShowToast('Failed to remove item.', 'error');
+        } finally {
+          adminDeleteConfirmBtn.disabled = false;
+          adminDeleteConfirmBtn.textContent = 'Remove';
+        }
+      }
+
+      // --- Render Orders ---
+      function adminRenderOrders() {
+        var filtered = adminOrders;
+        if (adminCurrentStatusFilter) {
+          filtered = adminOrders.filter(function (o) { return o.status === adminCurrentStatusFilter; });
+        }
+
+        if (filtered.length === 0) {
+          adminOrdersTableBody.innerHTML = '<tr><td colspan="7" class="admin-empty-state"><p>No orders found.</p></td></tr>';
+          return;
+        }
+
+        var html = '';
+        filtered.forEach(function (order) {
+          var orderDate = order.orderDate ? new Date(order.orderDate) : null;
+          var dateStr = orderDate ? adminFormatDate(orderDate) : '--';
+          var timeStr = orderDate ? adminFormatTime(orderDate) : '';
+
+          var pickupTime = order.pickupTime || '--';
+
+          var statusClass = 'admin-status-' + (order.status || 'pending').toLowerCase();
+
+          var statusOptions = ['Pending', 'Preparing', 'Ready', 'Completed', 'Cancelled'];
+          var selectHtml = '<select class="admin-status-select admin-order-status-select" data-order-id="' + order.id + '">';
+          statusOptions.forEach(function (s) {
+            var sel = s === order.status ? ' selected' : '';
+            selectHtml += '<option value="' + s + '"' + sel + '>' + s + '</option>';
+          });
+          selectHtml += '</select>';
+
+          html += '<tr>'
+            + '<td><div class="admin-order-date">' + adminEscapeHtml(dateStr) + '<div class="admin-order-date-sub">' + adminEscapeHtml(timeStr) + '</div></div></td>'
+            + '<td>' + adminEscapeHtml(order.customerName || 'Guest') + '</td>'
+            + '<td><div class="admin-order-items-list">' + adminEscapeHtml(order.items || '--') + '</div></td>'
+            + '<td>$' + (order.total || 0).toFixed(2) + '</td>'
+            + '<td>' + adminEscapeHtml(pickupTime) + '</td>'
+            + '<td><span class="admin-order-status ' + statusClass + '">' + adminEscapeHtml(order.status || 'Pending') + '</span></td>'
+            + '<td>' + selectHtml + '</td>'
+            + '</tr>';
+        });
+
+        adminOrdersTableBody.innerHTML = html;
+        adminBindOrderActions();
+      }
+
+      function adminBindOrderActions() {
+        var selects = document.querySelectorAll('.admin-order-status-select');
+        selects.forEach(function (select) {
+          select.addEventListener('change', function () {
+            var orderId = this.getAttribute('data-order-id');
+            var newStatus = this.value;
+            adminUpdateOrderStatus(orderId, newStatus);
+          });
+        });
+      }
+
+      // --- Update Order Status ---
+      async function adminUpdateOrderStatus(orderId, status) {
+        try {
+          var res = await fetch('/.netlify/functions/admin-update-order', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ orderId: orderId, status: status })
+          });
+
+          if (!res.ok) throw new Error('Update failed');
+
+          var order = adminOrders.find(function (o) { return o.id === orderId; });
+          if (order) order.status = status;
+          adminUpdateStats();
+          adminRenderOrders();
+          adminShowToast('Order status updated to ' + status + '.', 'success');
+        } catch (err) {
+          console.error('Admin update order error:', err);
+          adminShowToast('Failed to update order status.', 'error');
+          adminRenderOrders();
+        }
+      }
+
+      // --- Admin Event Listeners ---
+
+      // Add Item button
+      adminAddItemBtn.addEventListener('click', adminOpenAddModal);
+
+      // Category filter
+      adminCategoryFilter.addEventListener('change', adminRenderMenu);
+
+      // Item modal close / cancel
+      adminItemModalClose.addEventListener('click', adminCloseItemModal);
+      adminItemCancelBtn.addEventListener('click', adminCloseItemModal);
+      adminItemModal.addEventListener('click', function (e) {
+        if (e.target === adminItemModal) adminCloseItemModal();
+      });
+
+      // Image preview
+      adminItemImageUrl.addEventListener('input', function () {
+        var url = this.value.trim();
+        if (url) {
+          adminImagePreview.src = url;
+          adminImagePreview.classList.add('visible');
+          adminImagePreview.onerror = function () {
+            adminImagePreview.classList.remove('visible');
+          };
+        } else {
+          adminImagePreview.classList.remove('visible');
+        }
+      });
+
+      // Form submit
+      adminItemForm.addEventListener('submit', adminSaveItem);
+
+      // Delete modal close / cancel
+      adminDeleteModalClose.addEventListener('click', adminCloseDeleteModal);
+      adminDeleteCancelBtn.addEventListener('click', adminCloseDeleteModal);
+      adminDeleteModal.addEventListener('click', function (e) {
+        if (e.target === adminDeleteModal) adminCloseDeleteModal();
+      });
+
+      // Delete confirm
+      adminDeleteConfirmBtn.addEventListener('click', adminDeleteItem);
+
+      // Status filter buttons
+      adminStatusFilters.addEventListener('click', function (e) {
+        var btn = e.target.closest('.admin-status-filter-btn');
+        if (!btn) return;
+        adminStatusFilters.querySelectorAll('.admin-status-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        adminCurrentStatusFilter = btn.getAttribute('data-status');
+        adminRenderOrders();
+      });
+
+      // Auto refresh toggle
+      adminAutoRefreshToggle.addEventListener('change', function () {
+        if (this.checked) {
+          adminAutoRefreshInterval = setInterval(async function () {
+            await adminFetchOrders();
+            adminUpdateStats();
+          }, 30000);
+        } else {
+          if (adminAutoRefreshInterval) {
+            clearInterval(adminAutoRefreshInterval);
+            adminAutoRefreshInterval = null;
+          }
+        }
+      });
 
       loadDashboard();
 
