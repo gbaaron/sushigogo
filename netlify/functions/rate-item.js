@@ -77,7 +77,7 @@ exports.handler = async (event) => {
         const ratingCount = allRatings.length;
         const avgRating = ratingCount > 0 ? Math.round((totalStars / ratingCount) * 100) / 100 : 0;
 
-        await base('Menu Items').update([{
+        await base('MenuItems').update([{
             id: menuItemId,
             fields: {
                 AvgRating: avgRating,

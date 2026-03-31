@@ -34,7 +34,7 @@ exports.handler = async (event) => {
         }).all();
 
         // Fetch all available menu items
-        const allItems = await base('Menu Items').select({
+        const allItems = await base('MenuItems').select({
             filterByFormula: '{IsAvailable} = TRUE()'
         }).all();
 

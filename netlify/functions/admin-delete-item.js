@@ -41,7 +41,7 @@ exports.handler = async (event) => {
         }
 
         if (hardDelete) {
-            await base('Menu Items').destroy([itemId]);
+            await base('MenuItems').destroy([itemId]);
             return {
                 statusCode: 200,
                 headers,
@@ -50,7 +50,7 @@ exports.handler = async (event) => {
         }
 
         // Soft delete - set IsAvailable to false
-        await base('Menu Items').update([{
+        await base('MenuItems').update([{
             id: itemId,
             fields: { IsAvailable: false }
         }]);

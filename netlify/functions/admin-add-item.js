@@ -44,7 +44,7 @@ exports.handler = async (event) => {
             };
         }
 
-        const newItem = await base('Menu Items').create([{
+        const newItem = await base('MenuItems').create([{
             fields: {
                 Name: name,
                 Category: category,

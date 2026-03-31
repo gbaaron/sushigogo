@@ -62,7 +62,7 @@ exports.handler = async (event) => {
             return { statusCode: 400, headers, body: JSON.stringify({ error: 'No valid fields to update' }) };
         }
 
-        await base('Menu Items').update([{ id: itemId, fields }]);
+        await base('MenuItems').update([{ id: itemId, fields }]);
 
         return {
             statusCode: 200,

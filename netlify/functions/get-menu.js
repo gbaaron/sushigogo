@@ -29,7 +29,7 @@ exports.handler = async (event) => {
             options.filterByFormula = '{IsAvailable} = TRUE()';
         }
 
-        const records = await base('Menu Items').select(options).all();
+        const records = await base('MenuItems').select(options).all();
 
         const menuItems = records.map(record => ({
             id: record.id,
