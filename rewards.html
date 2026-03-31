@@ -428,6 +428,75 @@
       background-color: var(--color-primary);
     }
 
+    /* ─── Admin Tab Separator & Styling ─── */
+    .admin-tab-divider {
+      display: none;
+      align-items: center;
+      padding: 0 12px;
+      margin-left: 8px;
+    }
+
+    .admin-tab-divider::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 24px;
+      background: var(--color-border);
+      margin-right: 12px;
+    }
+
+    .admin-tab-divider .admin-badge {
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--color-primary);
+      padding: 3px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .tab-btn.admin-tab {
+      color: var(--color-primary);
+      opacity: 0.7;
+    }
+
+    .tab-btn.admin-tab:hover {
+      opacity: 1;
+    }
+
+    .tab-btn.admin-tab.active {
+      opacity: 1;
+      color: var(--color-primary);
+    }
+
+    .admin-content-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #fef2f2, #fff5f0);
+      border: 1px solid #fecaca;
+      border-radius: 4px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+    }
+
+    .admin-content-banner svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .admin-content-banner span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-primary);
+      letter-spacing: 0.5px;
+    }
+
     .tab-content {
       display: none;
       padding: 36px 0;
@@ -2105,8 +2174,9 @@
           <button class="tab-btn" data-tab="orders">Orders</button>
           <button class="tab-btn" data-tab="recommendations">Recommendations</button>
           <button class="tab-btn" data-tab="settings">Settings</button>
+          <div class="admin-tab-divider" id="adminTabDivider"><span class="admin-badge">Admin</span></div>
           <button class="tab-btn admin-tab" data-tab="menu-mgmt" style="display:none;">Menu</button>
-          <button class="tab-btn admin-tab" data-tab="order-mgmt" style="display:none;">Orders (Admin)</button>
+          <button class="tab-btn admin-tab" data-tab="order-mgmt" style="display:none;">Orders</button>
         </div>
 
         <!-- Overview Tab -->
@@ -2296,6 +2366,10 @@
 
         <!-- Menu Management Tab (Admin Only) -->
         <div class="tab-content" id="tab-menu-mgmt">
+          <div class="admin-content-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Admin Only — Menu Management</span>
+          </div>
           <div class="admin-stats-bar">
             <div class="admin-stat-card">
               <div class="admin-stat-label">Active Menu Items</div>
@@ -2353,6 +2427,10 @@
 
         <!-- Order Management Tab (Admin Only) -->
         <div class="tab-content" id="tab-order-mgmt">
+          <div class="admin-content-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Admin Only — Order Management</span>
+          </div>
           <div class="admin-toolbar">
             <div class="admin-toolbar-left">
               <div class="admin-status-filters" id="adminStatusFilters">
@@ -2534,6 +2612,7 @@
       // Show admin link and admin tabs if applicable
       if (localStorage.getItem('isAdmin') === 'true') {
         document.getElementById('adminLink').style.display = '';
+        document.getElementById('adminTabDivider').style.display = 'flex';
         document.querySelectorAll('.admin-tab').forEach(function(el) { el.style.display = ''; });
       }
 
