@@ -1759,7 +1759,7 @@
                     var token = localStorage.getItem('userToken');
                     if (token) headers['Authorization'] = 'Bearer ' + token;
                     var res = await fetch('/.netlify/functions/create-order', { method: 'POST', headers: headers, body: JSON.stringify(payload) });
-                    if (!res.ok) { var errData = await res.json(); throw new Error(errData.error || 'Order failed'); }
+                    if (!res.ok) { var errData = await res.json(); console.error('Order API error detail:', errData.detail || errData.error); throw new Error(errData.detail || errData.error || 'Order failed'); }
                     var data = await res.json();
                     cart = []; payWithPoints = false;
                     var toggle = document.getElementById('payWithPointsToggle');

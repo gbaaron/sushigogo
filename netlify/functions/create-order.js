@@ -20,7 +20,13 @@ exports.handler = async (event) => {
     }
 
     try {
-        const { items, pickupTime, subtotal, tax, total, pointsEarned, paymentMethod, pointsRedeemed } = JSON.parse(event.body);
+        const body = JSON.parse(event.body);
+        const { items, pickupTime, subtotal, tax, total, pointsEarned, paymentMethod, pointsRedeemed } = body;
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            return { statusCode: 400, headers, body: JSON.stringify({ error: 'No items in order' }) };
+        }
+
         const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 
         // Check for auth token (optional for guest checkout)
@@ -49,8 +55,8 @@ exports.handler = async (event) => {
 
             // Validate sufficient points BEFORE creating the order
             if (paymentMethod === 'points') {
-                const newPoints = currentPoints - (pointsRedeemed || 0);
-                if (newPoints < 0) {
+                const remaining = currentPoints - (pointsRedeemed || 0);
+                if (remaining < 0) {
                     return {
                         statusCode: 400,
                         headers,
@@ -63,50 +69,43 @@ exports.handler = async (event) => {
         // Build order fields
         const orderFields = {
             OrderDate: new Date().toISOString(),
-            PickupTime: pickupTime,
+            PickupTime: pickupTime || '',
             ItemsList: items.map(item => `${item.name} (${item.quantity})`).join(', '),
             ItemsJSON: JSON.stringify(items),
-            Subtotal: subtotal || 0,
-            Tax: tax || 0,
-            Total: total || 0,
-            PointsEarned: pointsEarned || 0,
+            Subtotal: Number(subtotal) || 0,
+            Tax: Number(tax) || 0,
+            Total: Number(total) || 0,
+            PointsEarned: Number(pointsEarned) || 0,
             Status: 'Pending'
         };
 
-        // Store user ID as plain text (not linked record array)
         if (!isGuest && userData) {
             orderFields.UserID = decoded.userId;
+            orderFields.CustomerName = userData.get('Name') || '';
+            orderFields.CustomerEmail = userData.get('Email') || '';
         }
 
-        // Attempt to create the order. If CustomerName/CustomerEmail fields don't exist
-        // in Airtable yet, fall back to creating without them (add those fields in Airtable
-        // to enable customer names in the admin dashboard).
-        let order;
-        try {
-            const fieldsWithCustomer = { ...orderFields };
-            if (!isGuest && userData) {
-                fieldsWithCustomer.CustomerName = userData.get('Name') || '';
-                fieldsWithCustomer.CustomerEmail = userData.get('Email') || '';
-            }
-            order = await base('Orders').create([{ fields: fieldsWithCustomer }]);
-        } catch (createErr) {
-            // Retry without optional customer name fields (fields may not exist in Airtable yet)
-            order = await base('Orders').create([{ fields: orderFields }]);
+        if (paymentMethod === 'points') {
+            orderFields.PaymentMethod = 'points';
+            orderFields.PointsRedeemed = Number(pointsRedeemed) || 0;
+        } else {
+            orderFields.PaymentMethod = 'money';
+            orderFields.PointsRedeemed = 0;
         }
+
+        // typecast: true lets Airtable auto-create single-select options and coerce field types
+        const order = await base('Orders').create([{ fields: orderFields }], { typecast: true });
 
         // Points and tier logic — only for authenticated users
         if (!isGuest && userData) {
             let newPoints;
 
             if (paymentMethod === 'points') {
-                // Points redemption — deduct points, earn nothing
                 newPoints = currentPoints - (pointsRedeemed || 0);
             } else {
-                // Money payment — earn points
                 newPoints = currentPoints + (pointsEarned || 0);
             }
 
-            // Auto tier upgrade
             let newTier = 'Bronze';
             if (newPoints >= 1500) {
                 newTier = 'Gold';
@@ -118,10 +117,10 @@ exports.handler = async (event) => {
                 id: decoded.userId,
                 fields: {
                     Points: newPoints,
-                    TotalSpent: currentSpent + (total || 0),
+                    TotalSpent: currentSpent + (Number(total) || 0),
                     TierLevel: newTier
                 }
-            }]);
+            }], { typecast: true });
 
             return {
                 statusCode: 200,
