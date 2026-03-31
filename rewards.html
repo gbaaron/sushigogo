@@ -2175,6 +2175,7 @@
           <button class="tab-btn" data-tab="recommendations">Recommendations</button>
           <button class="tab-btn" data-tab="settings">Settings</button>
           <div class="admin-tab-divider" id="adminTabDivider"><span class="admin-badge">Admin</span></div>
+          <button class="tab-btn admin-tab" data-tab="admin-summary" style="display:none;">Summary</button>
           <button class="tab-btn admin-tab" data-tab="menu-mgmt" style="display:none;">Menu</button>
           <button class="tab-btn admin-tab" data-tab="order-mgmt" style="display:none;">Orders</button>
         </div>
@@ -2364,12 +2365,13 @@
           </div>
         </div>
 
-        <!-- Menu Management Tab (Admin Only) -->
-        <div class="tab-content" id="tab-menu-mgmt">
+        <!-- Daily Summary Tab (Admin Only) -->
+        <div class="tab-content" id="tab-admin-summary">
           <div class="admin-content-banner">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>Admin Only — Menu Management</span>
+            <span>Admin Only — Daily Summary</span>
           </div>
+
           <div class="admin-stats-bar">
             <div class="admin-stat-card">
               <div class="admin-stat-label">Active Menu Items</div>
@@ -2387,6 +2389,46 @@
               <div class="admin-stat-label">Today's Revenue</div>
               <div class="admin-stat-value" id="adminStatTodayRevenue">--</div>
             </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:24px;">
+            <!-- Recent Orders Quick View -->
+            <div style="border:1px solid var(--color-border); background:var(--color-warm-white); padding:24px;">
+              <h3 style="font-family:var(--font-display); font-size:18px; font-weight:400; color:var(--color-black); margin-bottom:16px;">Recent Orders</h3>
+              <div id="adminRecentOrdersList" style="font-size:14px; color:var(--color-text-light); font-weight:300;">
+                <p>Loading...</p>
+              </div>
+            </div>
+
+            <!-- Popular Items Today -->
+            <div style="border:1px solid var(--color-border); background:var(--color-warm-white); padding:24px;">
+              <h3 style="font-family:var(--font-display); font-size:18px; font-weight:400; color:var(--color-black); margin-bottom:16px;">Quick Actions</h3>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <button class="admin-btn-primary" id="adminGoToMenu" style="width:100%; justify-content:center;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add New Menu Item
+                </button>
+                <button class="admin-btn-primary" id="adminGoToOrders" style="width:100%; justify-content:center; background:var(--color-black);">
+                  View All Orders
+                </button>
+              </div>
+              <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--color-border);">
+                <div style="font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:var(--color-text-light); margin-bottom:8px;">Completed Today</div>
+                <div style="font-family:var(--font-display); font-size:28px; color:var(--color-success);" id="adminStatCompletedToday">--</div>
+              </div>
+              <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--color-border);">
+                <div style="font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:var(--color-text-light); margin-bottom:8px;">Cancelled Today</div>
+                <div style="font-family:var(--font-display); font-size:28px; color:var(--color-error);" id="adminStatCancelledToday">--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menu Management Tab (Admin Only) -->
+        <div class="tab-content" id="tab-menu-mgmt">
+          <div class="admin-content-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Admin Only — Menu Management</span>
           </div>
 
           <div class="admin-toolbar">
@@ -2999,7 +3041,7 @@
           btn.classList.add('active');
           document.getElementById('tab-' + target).classList.add('active');
           // Lazy load admin data on first admin tab visit
-          if ((target === 'menu-mgmt' || target === 'order-mgmt') && !adminDataLoaded) {
+          if ((target === 'admin-summary' || target === 'menu-mgmt' || target === 'order-mgmt') && !adminDataLoaded) {
             adminDataLoaded = true;
             adminFetchMenu();
             adminFetchOrders();
@@ -3236,10 +3278,10 @@
         e.preventDefault();
         tabBtns.forEach(function(b) { b.classList.remove('active'); });
         tabContents.forEach(function(tc) { tc.classList.remove('active'); });
-        var menuTab = document.querySelector('[data-tab="menu-mgmt"]');
-        if (menuTab) {
-          menuTab.classList.add('active');
-          document.getElementById('tab-menu-mgmt').classList.add('active');
+        var summaryTab = document.querySelector('[data-tab="admin-summary"]');
+        if (summaryTab) {
+          summaryTab.classList.add('active');
+          document.getElementById('tab-admin-summary').classList.add('active');
           if (!adminDataLoaded) {
             adminDataLoaded = true;
             adminFetchMenu();
@@ -3248,6 +3290,37 @@
           window.scrollTo(0, 0);
         }
       });
+
+      // Quick action buttons on Summary tab
+      var adminGoToMenuBtn = document.getElementById('adminGoToMenu');
+      var adminGoToOrdersBtn = document.getElementById('adminGoToOrders');
+
+      if (adminGoToMenuBtn) {
+        adminGoToMenuBtn.addEventListener('click', function() {
+          tabBtns.forEach(function(b) { b.classList.remove('active'); });
+          tabContents.forEach(function(tc) { tc.classList.remove('active'); });
+          var menuTab = document.querySelector('[data-tab="menu-mgmt"]');
+          if (menuTab) { menuTab.classList.add('active'); }
+          document.getElementById('tab-menu-mgmt').classList.add('active');
+          document.querySelector('.tabs-nav').scrollIntoView({ block: 'start' });
+          // Trigger add modal
+          setTimeout(function() {
+            var addBtn = document.getElementById('adminAddItemBtn');
+            if (addBtn) addBtn.click();
+          }, 200);
+        });
+      }
+
+      if (adminGoToOrdersBtn) {
+        adminGoToOrdersBtn.addEventListener('click', function() {
+          tabBtns.forEach(function(b) { b.classList.remove('active'); });
+          tabContents.forEach(function(tc) { tc.classList.remove('active'); });
+          var ordersTab = document.querySelector('[data-tab="order-mgmt"]');
+          if (ordersTab) { ordersTab.classList.add('active'); }
+          document.getElementById('tab-order-mgmt').classList.add('active');
+          document.querySelector('.tabs-nav').scrollIntoView({ block: 'start' });
+        });
+      }
 
       // ========== ADMIN FUNCTIONS ==========
 
@@ -3366,10 +3439,44 @@
         });
         document.getElementById('adminStatTodayOrders').textContent = todayOrders.length;
 
-        var todayRevenue = todayOrders
-          .filter(function (o) { return o.status === 'Completed'; })
-          .reduce(function (sum, o) { return sum + (o.total || 0); }, 0);
+        var completedToday = todayOrders.filter(function (o) { return o.status === 'Completed'; });
+        var cancelledToday = todayOrders.filter(function (o) { return o.status === 'Cancelled'; });
+
+        var todayRevenue = completedToday.reduce(function (sum, o) { return sum + (o.total || 0); }, 0);
         document.getElementById('adminStatTodayRevenue').textContent = '$' + todayRevenue.toFixed(2);
+
+        // Summary tab extras
+        var completedEl = document.getElementById('adminStatCompletedToday');
+        var cancelledEl = document.getElementById('adminStatCancelledToday');
+        if (completedEl) completedEl.textContent = completedToday.length;
+        if (cancelledEl) cancelledEl.textContent = cancelledToday.length;
+
+        // Recent orders list (last 5)
+        var recentList = document.getElementById('adminRecentOrdersList');
+        if (recentList) {
+          var recent = adminOrders.slice(0, 5);
+          if (recent.length === 0) {
+            recentList.innerHTML = '<p style="color:var(--color-text-light);">No orders yet.</p>';
+          } else {
+            var html = '';
+            recent.forEach(function (o) {
+              var date = o.orderDate ? adminFormatDate(new Date(o.orderDate)) : '--';
+              var time = o.orderDate ? adminFormatTime(new Date(o.orderDate)) : '';
+              var statusClass = 'admin-status-' + (o.status || 'pending').toLowerCase();
+              html += '<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--color-border);">'
+                + '<div>'
+                + '<div style="font-weight:500; color:var(--color-black); font-size:13px;">' + adminEscapeHtml(o.customerName || 'Guest') + '</div>'
+                + '<div style="font-size:12px; color:var(--color-text-light);">' + adminEscapeHtml(o.items || '--').substring(0, 40) + (o.items && o.items.length > 40 ? '...' : '') + '</div>'
+                + '</div>'
+                + '<div style="text-align:right;">'
+                + '<div style="font-weight:500; font-size:13px;">$' + (o.total || 0).toFixed(2) + '</div>'
+                + '<span class="admin-order-status ' + statusClass + '">' + adminEscapeHtml(o.status || 'Pending') + '</span>'
+                + '</div>'
+                + '</div>';
+            });
+            recentList.innerHTML = html;
+          }
+        }
       }
 
       // --- Render Menu ---
