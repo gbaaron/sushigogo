@@ -73,14 +73,26 @@ exports.handler = async (event) => {
             Status: 'Pending'
         };
 
-        // Store user info as plain text (not linked record)
+        // Store user ID as plain text (not linked record array)
         if (!isGuest && userData) {
             orderFields.UserID = decoded.userId;
-            orderFields.CustomerName = userData.get('Name') || '';
-            orderFields.CustomerEmail = userData.get('Email') || '';
         }
 
-        const order = await base('Orders').create([{ fields: orderFields }]);
+        // Attempt to create the order. If CustomerName/CustomerEmail fields don't exist
+        // in Airtable yet, fall back to creating without them (add those fields in Airtable
+        // to enable customer names in the admin dashboard).
+        let order;
+        try {
+            const fieldsWithCustomer = { ...orderFields };
+            if (!isGuest && userData) {
+                fieldsWithCustomer.CustomerName = userData.get('Name') || '';
+                fieldsWithCustomer.CustomerEmail = userData.get('Email') || '';
+            }
+            order = await base('Orders').create([{ fields: fieldsWithCustomer }]);
+        } catch (createErr) {
+            // Retry without optional customer name fields (fields may not exist in Airtable yet)
+            order = await base('Orders').create([{ fields: orderFields }]);
+        }
 
         // Points and tier logic — only for authenticated users
         if (!isGuest && userData) {
